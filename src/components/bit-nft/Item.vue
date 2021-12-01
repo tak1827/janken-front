@@ -2,7 +2,7 @@
         <router-link :to="{ name: 'bit.nft.detail', params: {id: id}}">
             <div class="item-content">
                 <div class="thumbnails">
-                    <div class="thumb"><img src="@frontend/assets/images/icon.png" alt="menu"/></div>
+                    <div class="thumb"><img :src="image" alt="menu"/></div>
                     <div class="text-name">{{ name }}</div>
                 </div>
                 <div class="content">

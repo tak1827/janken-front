@@ -61,29 +61,16 @@
             <div class="content-wapper-page">
                 <div class="content-page">
                     <ul class="list-item">
-                        <li class="item is-content" v-for="item in items" v-bind:key="item.id">
+                        <li class="item is-content" v-for="(item, index) in nfts" v-bind:key="tokens[index]">
                             <BitNftItem 
-                                :title="item.title"
-                                :id="item.id" 
-                                :name="item.name" 
+                                title="item.title"
+                                :id="tokens[index]" 
+                                name="item.name" 
                                 :owner="item.owner" 
-                                :image="item.image" 
+                                :image="item.public_metadata.token_uri" 
                             />
                         </li>
-                        <BitNftItemNoContent />
                     </ul>
-                </div>
-                <div class="pagination-footer">
-                    <paginate
-                    :page-count="20"
-                    :page-range="3"
-                    :margin-pages="2"
-                    :click-handler="clickCallback"
-                    :prev-text="'Prev'"
-                    :next-text="'Next'"
-                    :container-class="'pagination'"
-                    :page-class="'page-item'">
-                    </paginate>
                 </div>
             </div>
             <!-- .member-main-->
@@ -93,33 +80,32 @@
 
 <script>
 import BitNftItem from '@/components/bit-nft/Item.vue'
-import BitNftItemNoContent from '@/components/bit-nft/ItemNoContent.vue'
 import { defaultData } from '@/utils/constants'
-import Paginate from 'vuejs-paginate'
 import { getAllTokens, getNumOfTokens, getNftDetail } from '@/utils/wallet'
 export default {
     components: {
         BitNftItem,
-        BitNftItemNoContent,
-        Paginate
     },
     data () {
         return {
             items: defaultData,
             meta: {
                 all_tokens: {
+                    start_after: null,
                     limit: 6
                 }
             },
             nfts: [],
             tokens: [],
+            page_count: 0,
+            numOfTokens: 1
         }
     },
     computed: {
         lastTokenId() {
             const length = this.tokens.length
             if(length == 0){
-                return ''
+                return null
             }
             return this.tokens[length-1]
         }
@@ -129,8 +115,8 @@ export default {
     },
     async mounted() {
         await this.getNftData()
-        const numOfTokens = await getNumOfTokens()
-        console.log(numOfTokens)
+        await this.getNumOfTokens()
+        this.setPageCount()
     },
     methods: {
         clickCallback (pageNum) {
@@ -140,15 +126,23 @@ export default {
             const response = await getAllTokens(this.meta)
             const tokenList = response.token_list.tokens
             this.tokens = tokenList
+            const data = []
             for (const tokenId of tokenList) {
                 const nftResponse = await getNftDetail(tokenId)
                 if(nftResponse.nft_dossier) {
-                    this.nfts.push(nftResponse.nft_dossier)
+                    data.push(nftResponse.nft_dossier)
                 }
             }
+            this.nfts = [...data]
             console.log(this.nfts)
+        },
+        async getNumOfTokens() {
+            const response = await getNumOfTokens()
+            this.numOfTokens = response.num_tokens.count
+        },
+        setPageCount() {
+            this.page_count = Math.round(this.numOfTokens / this.meta.all_tokens.limit)
         }
-        
     }
 }
 </script>

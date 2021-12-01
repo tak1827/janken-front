@@ -596,6 +596,19 @@ ul {
   align-items: center;
   width: 100%;
 }
+.connect-link a {
+  line-height: 80px;
+  display: inline-block;
+  padding: 0 30px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
+}
 .connect-link .cnt-link-wallet {
   max-width: 270px;
   float: right;
