@@ -38,7 +38,7 @@
     </div>
 </template>
 <script>
-import { connectWallet, getAddress, mintNft } from '@/utils/wallet'
+import { connectWallet, getAddress } from '@/utils/wallet'
 export default {
     data() {
         return {
@@ -53,6 +53,7 @@ export default {
     methods: {
         async connectWallet() {
             this.address = await connectWallet()
+            
         },
         getAddress() {
             this.address = getAddress();
@@ -60,7 +61,6 @@ export default {
         getMintNftParam() {
             return {
                 mint_nft: {
-                    owner: getAddress(),
                     public_metadata: {
                         token_uri: "https://i.pinimg.com/originals/03/5a/0a/035a0ae23cae101f78259df86c36ae5b.jpg"
                     }

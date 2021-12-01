@@ -96,6 +96,7 @@ import BitNftItem from '@/components/bit-nft/Item.vue'
 import BitNftItemNoContent from '@/components/bit-nft/ItemNoContent.vue'
 import { defaultData } from '@/utils/constants'
 import Paginate from 'vuejs-paginate'
+import { getAllTokens, getNumOfTokens, getNftDetail } from '@/utils/wallet'
 export default {
     components: {
         BitNftItem,
@@ -104,16 +105,50 @@ export default {
     },
     data () {
         return {
-            items: defaultData
+            items: defaultData,
+            meta: {
+                all_tokens: {
+                    limit: 6
+                }
+            },
+            nfts: [],
+            tokens: [],
+        }
+    },
+    computed: {
+        lastTokenId() {
+            const length = this.tokens.length
+            if(length == 0){
+                return ''
+            }
+            return this.tokens[length-1]
         }
     },
     created () {
         this.$emit('changeBanner', true)
     },
+    async mounted() {
+        await this.getNftData()
+        const numOfTokens = await getNumOfTokens()
+        console.log(numOfTokens)
+    },
     methods: {
         clickCallback (pageNum) {
             console.log(pageNum)
+        },
+        async getNftData() {
+            const response = await getAllTokens(this.meta)
+            const tokenList = response.token_list.tokens
+            this.tokens = tokenList
+            for (const tokenId of tokenList) {
+                const nftResponse = await getNftDetail(tokenId)
+                if(nftResponse.nft_dossier) {
+                    this.nfts.push(nftResponse.nft_dossier)
+                }
+            }
+            console.log(this.nfts)
         }
+        
     }
 }
 </script>

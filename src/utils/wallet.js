@@ -111,3 +111,20 @@ export async function mintNft(data) {
     return response
 }
 
+export async function getNumOfTokens() {
+    const client = getClient();
+    let response = await client.queryContractSmart(process.env.VUE_APP_CONSTRACT_ADDRESS, { "num_tokens": {}})
+    return response
+}
+
+export async function getAllTokens(param) {
+    const client = getClient();
+    let response = await client.queryContractSmart(process.env.VUE_APP_CONSTRACT_ADDRESS, param)
+    return response
+}
+
+export async function getNftDetail(tokenID) {
+    const client = getClient();
+    let response = await client.queryContractSmart(process.env.VUE_APP_CONSTRACT_ADDRESS, { "nft_dossier": {"token_id": tokenID}})
+    return response
+}
