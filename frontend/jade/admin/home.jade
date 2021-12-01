@@ -1,0 +1,41 @@
+extends ../layouts/master.jade
+
+append titlePage
+  title Cosmos Explore
+
+append body
+  +body(class="")
+
+append body-contents
+  ="\n"
+  .home
+    .page-content-wrapper
+      .page-content
+        .connect-link
+          a(href="#")
+            |CONNECT WALLET
+        .content-page-home
+          .cnt-img-logo
+            img( src="../../assets/images/janken.png" alt="menu")
+          .cnt-img-title
+            img( src="../../assets/images/title.png" alt="menu")
+          .text-bit-nft
+            h3 Bit your NFTs or 
+          ul 
+            li
+              a(href="#") Bit NFT
+            li
+              a(href="#") Bit Token
+        .copy-right
+          p 
+            |© Janken Inc. All rights reserved.
+          // .member-main
+      // .page-content
+    // .member
+    //.page-container
+
+    ="\n"
+    // include ../includes/footer.jade
+
+    ="\n"
+

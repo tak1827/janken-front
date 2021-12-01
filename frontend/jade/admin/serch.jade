@@ -1,0 +1,91 @@
+extends ../layouts/master.jade
+
+append titlePage
+  title Cosmos Explore
+
+append body
+  +body(class="")
+
+append body-contents
+  include ../includes/header.jade
+
+  ="\n"
+  .page
+    .page-content-wrapper
+      .page-content
+        section.banner
+          .img-banner
+            img( src="../../assets/images/banner.png" alt="menu")
+        section.list-content
+          .container
+            include ../includes/page-sidebar.jade
+            .content-wapper-page
+              .content-page
+                ul.list-item
+                  li.item.is-content
+                    .item-content
+                      .thumbnails
+                        .thumb
+                          img( src="../../assets/images/icon.png" alt="menu")
+                        .text-name
+                          |Axie Infinity
+                      .content
+                        h3.title 
+                          a(href="#")
+                            |Hope
+                        .cnt-detail
+                          span Owner:
+                          span.bgr-cnt janken1gdg6scaqe...
+                  li.item.is-content
+                    .item-content
+                      .thumbnails
+                        .thumb
+                          img( src="../../assets/images/icon.png" alt="menu")
+                        .text-name
+                          |Axie Infinity
+                      .content
+                        h3.title 
+                          a(href="#")
+                            |Hope
+                        .cnt-detail
+                          span Owner:
+                          span.bgr-cnt janken1gdg6scaqe...
+                  li.item.is-content
+                    .item-content
+                      .thumbnails
+                        .thumb
+                          img( src="../../assets/images/icon.png" alt="menu")
+                        .text-name
+                          |Axie Infinity
+                      .content
+                        h3.title 
+                          a(href="#")
+                            |Hope
+                        .cnt-detail
+                          span Owner:
+                          span.bgr-cnt janken1gdg6scaqe...
+                  li.item.is-content
+                    .item-content
+                      .thumbnails
+                        .thumb
+                          img( src="../../assets/images/icon.png" alt="menu")
+                        .text-name
+                          |Axie Infinity
+                      .content
+                        h3.title 
+                          a(href="#")
+                            |Hope
+                        .cnt-detail
+                          span Owner:
+                          span.bgr-cnt janken1gdg6scaqe...
+                  li.item.no-content
+                    .item-content
+                  li.item.no-content
+                    .item-content
+            // .member-main
+      // .page-content
+    // .member
+    //.page-container
+    ="\n"
+    include ../includes/footer.jade
+    ="\n"

@@ -1,0 +1,109 @@
+extends ../layouts/master.jade
+
+append titlePage
+  title Cosmos Explore
+
+append body
+  +body(class="")
+
+append body-contents
+  include ../includes/header.jade
+
+  ="\n"
+  .page
+    .page-content-wrapper
+      .page-content
+        section.list-content-detail
+          .container
+            .content-nft-detail
+              .cnt-back-tag
+                .back 
+                  a(href="#") 
+                    i.fa.fa-caret-left(aria-hidden="true")
+                    span Back
+                ul
+                  li
+                    span Collection
+                  li
+                    span Axie Infinity
+
+              .content-item-detail
+                .cnt-detail-left
+                  .item
+                    .item-content
+                      .thumbnails
+                        .thumb
+                          img( src="../../assets/images/icon.png" alt="menu")
+                      .content
+                        h3.title 
+                          a(href="#")
+                            |Hope
+                        .cnt-detail
+                          span Owner:
+                          span.bgr-cnt janken1gdg6scaqe...
+                        .cnt-text-detail
+                          p Certain Axies that are born in Japan may be born with a visually distinct, Japanese part. These parts are purely cosmetic in their difference. For example the Axie below has a Japanese tail, called “Omatsuri”.
+                .cnt-detai-right
+                  .cnt-detail-top
+                    h3.text-my-nft
+                      |MyOriginalNFT fuga
+                    button.btn.btn-chose-nft(data-toggle="modal" data-target="#popup-chose-hand") CHOOSE BIT NFT
+                  .cnt-time
+                    ul
+                      li
+                        .cnt
+                          span.title Times to fight: 
+                          span.cnt-time 5 times
+                          .icon-up-down
+                            .icon-up
+                              i.fa.fa-caret-up
+                            .icon-down
+                              i.fa.fa-caret-down
+                      li
+                        .cnt
+                          span.title Times to win: 
+                          span.cnt-time 2 times
+                          .icon-up-down
+                            .icon-up
+                              i.fa.fa-caret-up
+                            .icon-down
+                              i.fa.fa-caret-down
+
+                  .list-chose-hand
+                    button.btn.btn-chose-nft CHOOSE BIT NFT
+                    .list-hand
+                      .row
+                        .col-md-4
+                          .cnt-detail-hand
+                            .number 
+                              span 1
+                            .img-hand
+                              img( src="../../assets/images/hand.png" alt="menu")
+                        .col-md-4
+                          .cnt-detail-hand
+                            .number 
+                              span 2
+                            .img-hand
+                              img( src="../../assets/images/hand.png" alt="menu")
+                        .col-md-4
+                          .cnt-detail-hand
+                            .number 
+                              span 3
+                            .img-hand
+                              img( src="../../assets/images/hand.png" alt="menu")
+                        .col-md-4
+                          .cnt-detail-hand
+                            .number 
+                              span 3
+                            .img-hand
+                              
+                  .cnt-send-request
+                    button.btn.btn-chose-nft Send Fight Request
+            // .member-main
+      // .page-content
+    // .member
+    //.page-container
+    ="\n"
+    include ../includes/footer.jade
+    ="\n"
+    include ../includes/popupConfirm02.jade

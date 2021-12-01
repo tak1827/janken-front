@@ -1,0 +1,125 @@
+extends ../layouts/master.jade
+
+append titlePage
+  title Cosmos Explore
+
+append body
+  +body(class="")
+
+append body-contents
+  include ../includes/header.jade
+
+  ="\n"
+  .page
+    .page-content-wrapper
+      .page-content.mypage
+        section.banner
+          .img-banner
+            img( src="../../assets/images/mypage.png" alt="menu")
+        section.list-content
+          .container
+            include ../includes/page-sidebar1.jade
+            .content-wapper-page
+              .content-page
+                ul.item-mypage
+                  li.item
+                    .title-mypage MINE
+                    .item-content
+                      .thumbnails
+                        .thumb
+                          img( src="../../assets/images/icon.png" alt="menu")
+                        .text-name
+                          |Axie Infinity
+                      .content
+                        h3.title 
+                          a(href="#")
+                            |Hope
+                        .cnt-detail
+                          span Owner:
+                          span.bgr-cnt janken1gdg6scaqe...
+                  li.item
+                    .item-content
+                      .text-title Win condition
+                      .cnt-ratio
+                        .left
+                          .number 2
+                          .text Wins
+                        .center
+                          .number /
+                        .right
+                          .number 5
+                          .text Fights
+                      .cnt-send-request
+                        button.btn.btn-chose-nft Send Fight Request
+                      .cnt-btn-decline
+                        button.btn.btn-dicline Decline
+                  li.item
+                    .title-mypage Opponent's
+                    .item-content
+                      .thumbnails
+                        .thumb
+                          img( src="../../assets/images/icon.png" alt="menu")
+                        .text-name
+                          |Axie Infinity
+                      .content
+                        h3.title 
+                          a(href="#")
+                            |Hope
+                        .cnt-detail
+                          span Owner:
+                          span.bgr-cnt janken1gdg6scaqe...
+                ul.item-mypage
+                  li.item
+                    .title-mypage MINE
+                    .item-content
+                      .thumbnails
+                        .thumb
+                          img( src="../../assets/images/icon.png" alt="menu")
+                        .text-name
+                          |Axie Infinity
+                      .content
+                        h3.title 
+                          a(href="#")
+                            |Hope
+                        .cnt-detail
+                          span Owner:
+                          span.bgr-cnt janken1gdg6scaqe...
+                  li.item
+                    .item-content
+                      .text-title Win condition
+                      .cnt-ratio
+                        .left
+                          .number 3
+                          .text Wins
+                        .center
+                          .number /
+                        .right
+                          .number 5
+                          .text Fights
+                      .cnt-send-request
+                        button.btn.btn-chose-nft Send Fight Request
+                      .cnt-btn-decline
+                        button.btn.btn-dicline Decline
+                  li.item
+                    .title-mypage Opponent's
+                    .item-content
+                      .thumbnails
+                        .thumb
+                          img( src="../../assets/images/icon.png" alt="menu")
+                        .text-name
+                          |Axie Infinity
+                      .content
+                        h3.title 
+                          a(href="#")
+                            |Hope
+                        .cnt-detail
+                          span Owner:
+                          span.bgr-cnt janken1gdg6scaqe...
+                  
+            // .member-main
+      // .page-content
+    // .member
+    //.page-container
+    ="\n"
+    include ../includes/footer.jade
+    ="\n"

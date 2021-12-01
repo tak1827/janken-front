@@ -1,0 +1,28 @@
+#popupConfirmation.modal.modal-dialog-centered.fade.popup_customer(tabindex='-1',role="dialog", aria-labelledby="exampleModalLabel", aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') 
+          span 
+            img( src="../../assets/images/close.svg" alt="icon close")
+      .modal-body
+        h5.title-popup Confirmation
+        .content-popup-detail
+          ul
+            li
+              strong Receiver:
+              span svc+1
+            li
+              strong Amount:
+              span $130
+            li 
+              strong Fee:
+              span 0%
+            li
+              strong Total:
+              span $130
+
+          
+      .modal-footer
+        button.btn.btn-save(data-toggle='modal', data-target="#popupConfirmFinish" type="button") CONFIRM
+

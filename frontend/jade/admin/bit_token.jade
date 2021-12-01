@@ -1,0 +1,49 @@
+extends ../layouts/master.jade
+
+append titlePage
+  title Cosmos Explore
+
+append body
+  +body(class="")
+
+append body-contents
+  include ../includes/header.jade
+
+  ="\n"
+  .page
+    .page-content-wrapper
+      .page-content
+        section.banner
+          .img-banner
+            img( src="../../assets/images/banner.png" alt="menu")
+        section.list-content
+          .container
+            .content-bit-token
+              .cnt-token-left
+                .cnt-token
+                  span.text Amount to Bit
+                  .cnt-number-token
+                    span.number 112
+                    .icon-up-down
+                      .icon-up
+                        i.fa.fa-caret-up
+                      .icon-down
+                        i.fa.fa-caret-down
+                  span.text Token
+              .cnt-token-right
+                .chose-img
+                  .control-group.file-upload#file-upload1
+                    .image-box.text-center
+                      p Upload Image
+                      img(src="../../assets/images/bgr_side.png" alt="")
+                    .controls(style="display: none;")
+                      input(type="file" name="contact_image_1")  
+            .cnt-send-request
+              button.btn.btn-chose-nft Send Fight Request
+            // .member-main
+      // .page-content
+    // .member
+    //.page-container
+    ="\n"
+    include ../includes/footer.jade
+    ="\n"
