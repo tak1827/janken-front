@@ -1,30 +1,26 @@
 <template>
     <div class="content-page">
-        <ul class="item-mypage">
+        <ul class="item-mypage" v-for="item in offers" :key="item.offerId">
             <li class="item">
                 <div class="title-mypage">MINE</div>
                 <Item 
-                    owner="janken1gdg6scaqe..." 
-                    name="Axie Infinity"
+                    :image="item.image"
+                    :owner="item.offerorNFT.owner" 
+                    :name="item.offerorNFT.name"
                 />
             </li>
             <li class="item">
                 <div class="item-content">
                     <div class="text-title">Win condition</div>
-                    <WinCondition/>
-                    <div class="cnt-send-request">
-                        <button class="btn btn-chose-nft" @click="handelSendFight(1)">Send Fight Request</button>
-                    </div>
-                    <div class="cnt-btn-decline">
-                        <button class="btn btn-dicline"  @click="handelDecline(1)">Decline</button>
-                    </div>
+                    <WinCondition :timeToFight="item.offereeHands.length"/>
                 </div>
             </li>
             <li class="item">
                 <div class="title-mypage">Opponent's</div>
                 <Item 
-                    owner="janken1gdg6scaqe..." 
-                    name="Axie Infinity"
+                    :image="item.image"
+                    :owner="item.offereeNFT.owner" 
+                    :name="item.offereeNFT.name"
                 />
             </li>
         </ul>
@@ -33,10 +29,22 @@
 <script>
 import WinCondition from "@/components/WinCondition.vue"
 import Item from '@/components/bit-nft/Item.vue'
+import { GET_OFFERS } from '@/utils/graphql'
+import { getErrorMessage, getData } from '@/utils/api_response'
+import { getAddress } from '@/utils/wallet'
 export default {
+    data() {
+        return {
+            offers: [],
+            fetchOffersModule: "fetchOffers"
+        }
+    },
     components: {
         WinCondition,
         Item
+    },
+    async mounted() {
+        await this.getOffersData()
     },
     methods: {
         handelSendFight(value) {
@@ -44,7 +52,21 @@ export default {
         },
         handelDecline(value) {
             console.log(value)
-        }
+        },
+        async getOffersData() {
+            await this.$apollo.query({
+                query: GET_OFFERS,
+                variables: { 
+                    address: getAddress(),
+                }
+            }).then((response) => {
+                const offers = getData(response, this.fetchOffersModule)
+                this.offers = offers.find(x => x.offerorNFT.owner == getAddress())
+            }).catch((error) => {
+                let message = getErrorMessage(error.graphQLErrors)
+                this.$toast.error(message);
+            })
+        },
     }
 }
 </script>

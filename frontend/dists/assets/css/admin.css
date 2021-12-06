@@ -1023,6 +1023,11 @@ ul {
   line-height: 24px;
   padding: 3px 10px;
   margin-left: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 .list-content-detail .content-item-detail .cnt-detail-left .item .item-content .content h3 {
   margin-top: 10px;
@@ -1033,6 +1038,11 @@ ul {
   line-height: 24px;
   font-weight: 700;
 }
+.list-content-detail .content-item-detail .cnt-detail-left .item .item-content .content .cnt-detail{
+  display: flex;
+  align-items: center;
+}
+
 .list-content-detail .content-item-detail .cnt-detail-left .item .item-content .content .cnt-text-detail {
   margin-top: 15px;
   padding-top: 20px;
@@ -1645,4 +1655,105 @@ ul {
   background-color: transparent;
   border-color: transparent;
   color: #fff;
+}
+form .input-upload-file .custom-file-input {
+  display: none;
+}
+form .input-upload-file .btn {
+  width: 100%;
+}
+form .input-upload-file .form-file-text {
+  max-width: 220px;
+  margin: 0 auto;
+  background: #fff;
+  border: 2px solid #131211;
+  line-height: 50px;
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+}
+form .form-group .form-control {
+  min-height: 45px;
+  color: #000;
+  border: 2px solid #000 !important;
+  -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+  padding: 10px;
+}
+form .form-group textarea {
+  min-height: 150px!important;
+}
+form .form-group  button{
+  background-color: #520303;
+  color:#fff;
+  font-size: 18px;
+  line-height:32px;
+  max-width: 160px;
+  width: 100%;
+}
+form .form-group  .btn.focus,
+form .form-group  .btn:focus,
+form .form-group  .btn:hover {
+  color: #520303;
+  text-decoration: none;
+  border:2px solid #520303;
+  background-color: transparent;
+}
+.privew-cnt-mypage .item .title {
+  margin: 0;
+  padding: 15px;
+  text-align: center;
+  background: #520303;
+  color: #fff;
+}
+.privew-cnt-mypage .item .item-content {
+  background-color: #fff;
+  border: 2px solid #131211;
+  padding: 12px;
+}
+.privew-cnt-mypage .item .item-content .thumbnails {
+  border-bottom: 2px solid #131211;
+}
+.privew-cnt-mypage .item .item-content .thumbnails .thumb {
+  height: 350px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.privew-cnt-mypage .item .item-content .thumbnails .thumb img {
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.privew-cnt-mypage .item .item-content .content h3 {
+  margin-top: 10px;
+}
+.privew-cnt-mypage .item .item-content .content h3 a {
+  color: #131211;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+}
+.privew-cnt-mypage .item .item-content .content .cnt-detail span {
+  font-size: 16px;
+  line-height: 21px;
+  color: #131211;
+}
+.privew-cnt-mypage .item .item-content .content .cnt-detail span.bgr-cnt {
+  background-color: #efefef;
+  border-radius: 12px;
+  color: #131211;
+  line-height: 24px;
+  padding: 3px 10px;
+  margin-left: 10px;
+}
+.privew-cnt-mypage .item .item-content .content .cnt-text-detail {
+  padding-top: 20px;
 }

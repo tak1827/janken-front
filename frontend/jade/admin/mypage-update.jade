@@ -1,0 +1,61 @@
+extends ../layouts/master.jade
+
+append titlePage
+  title Cosmos Explore
+
+append body
+  +body(class="")
+
+append body-contents
+  include ../includes/header.jade
+
+  ="\n"
+  .page
+    .page-content-wrapper
+      .page-content.mypage
+        section.banner
+          .img-banner
+            img( src="../../assets/images/mypage.png" alt="menu")
+        section.list-content
+          .container
+            include ../includes/page-sidebar1.jade
+            .content-wapper-page
+              .content-page
+                .row
+                  .col-md-6
+                    form()
+                      .form-group
+                        .col
+                          .input-label.input-upload-file
+                            label.btn.btn-select-file
+                              span.d-block.form-file-text Upload Image
+                              input.custom-file-input#imgInp(type="file")           
+                      .form-group
+                        label.col-form-label(for="input-user_name")
+                          span Title
+                        .col
+                          input.form-control(type="text")
+                      .form-group
+                        label.col-form-label
+                          span Description
+                        .col
+                          textarea.form-control(type="text")
+                  .col-md-6
+                    .privew-cnt-mypage
+                      .item
+                        h3.title 
+                            |Hope
+                        .item-content
+                          .thumbnails
+                            .thumb
+                              img#blah( src="../../assets/images/icon.png" alt="menu")
+                          .content
+                            .cnt-text-detail
+                              p Certain Axies that are born in Japan may be born with a visually distinct, Japanese part. These parts are purely cosmetic in their difference. For example the Axie below has a Japanese tail, called “Omatsuri”.
+            // .member-main
+      // .page-content
+    // .member
+    //.page-container
+    ="\n"
+    include ../includes/footer.jade
+    ="\n"

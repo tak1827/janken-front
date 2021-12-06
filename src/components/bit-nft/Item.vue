@@ -2,7 +2,10 @@
         <router-link :to="{ name: 'bit.nft.detail', params: {id: id}}">
             <div class="item-content">
                 <div class="thumbnails">
-                    <div class="thumb"><img :src="image" alt="menu"/></div>
+                    <div class="thumb">
+                        <img v-if="image != ''" :src="image" alt="menu"/>
+                        <img v-else src="@frontend/assets/images/icon.png" alt="menu" />
+                    </div>
                     <div class="text-name">{{ name }}</div>
                 </div>
                 <div class="content">

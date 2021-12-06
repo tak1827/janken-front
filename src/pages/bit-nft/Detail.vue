@@ -15,7 +15,7 @@
                     <div class="cnt-detai-right">
                         <div class="cnt-detail-top">
                             <h3 class="text-my-nft">MyOriginalNFT fuga</h3>
-                            <button class="btn btn-chose-nft">CHOOSE BIT NFT</button>
+                            <button class="btn btn-chose-nft" @click="showModal('modal-nft')">CHOOSE BIT NFT</button>
                         </div>
                         <div class="cnt-time">
                             <ul>
@@ -36,7 +36,7 @@
                             </ul>
                         </div>
                         <div class="list-chose-hand">
-                            <button class="btn btn-chose-nft" @click="showModal">CHOOSE BIT NFT</button>
+                            <button class="btn btn-chose-nft" @click="showModalHand()">CHOOSE YOUR HAND</button>
                             <div class="list-hand">
                                 <div class="row">
                                     <div class="col-md-4" v-for="counter in timeToFight" v-bind:key="counter">
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                         <div class="cnt-send-request">
-                            <button class="btn btn-chose-nft">Send Fight Request</button>
+                            <button class="btn btn-chose-nft" @click="sendFightRequest">Send Fight Request</button>
                         </div>
                     </div>
                 </div>
@@ -57,11 +57,11 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button class="close" type="button" @click="closeModal"> <span>&times;</span></button>
+                        <button class="close" type="button" @click="closeModal('modal')"> <span>&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <div class="btn-chose-popup">
-                            <button class="btn btn-chose-nft">CHOOSE BIT NFT</button>
+                            <button class="btn btn-chose-nft">CHOOSE YOUR HAND</button>
                         </div>
                         <div class="list-hand list-title-chose">
                             <div class="row">
@@ -87,6 +87,38 @@
                 </div>
             </div>
         </div>
+        <div class="modal modal-dialog-centered fade popup_customer" ref="modal-nft" id="popup-chose-hand" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" @click="closeModal('modal-nft')"> <span>&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="btn-chose-popup">
+                            <button class="btn btn-chose-nft">CHOOSE BIT NFT</button>
+                        </div>
+                        <div class="list-hand">
+                             <h3>Your choose</h3>
+                            <div class="row">
+                                <div class="col-md-4" v-for="item in nfts" v-bind:key="item.tokenId">
+                                    <li class="item is-content" @click="chooseNft(item.tokenId)">
+                                        <NftItem 
+                                            :id="item.tokenId" 
+                                            :name="item.name" 
+                                            :owner="item.owner" 
+                                            :image="item.image" 
+                                        />
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-chose-nft" @click="confirmHand">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </template>
 <script>
@@ -94,15 +126,20 @@ import TagBack from '@/components/TagBack.vue'
 import UpDownTime from '@/components/UpDownTime.vue'
 import Hand from '@/components/Hand.vue'
 import Item from '@/components/bit-nft-detail/Item.vue'
+import NftItem from '@/components/bit-nft/Item.vue'
 import ImageHand from '@/components/ImageHand.vue'
 import { defaultData, HAND } from '@/utils/constants'
+import { GET_NFT_DETAIL, GET_OWNER_NFT } from '@/utils/graphql'
+import { getErrorMessage, getData } from '@/utils/api_response'
+import { makeOffer, getAddress, appoveToken } from '@/utils/wallet'
 export default {
     components: {
         TagBack,
         Item,
         UpDownTime,
         Hand,
-        ImageHand
+        ImageHand,
+        NftItem
     },
     data () {
         return {
@@ -113,7 +150,13 @@ export default {
             timeToWin: 0,
             hands: [],
             handInModal: [],
-            handConstant: HAND
+            handConstant: HAND,
+            fetchNftModule: "fetchNFT",
+
+            nfts: [],
+            tokenId: "",
+            tokenIdInModal: "",
+            ownerNFTModule: "fetchNFTsByOwner"
         }
     },
     created () {
@@ -121,10 +164,34 @@ export default {
     },
     mounted () {
         this.getData()
+        this.getNftData()
     },
     methods: {
         getData() {
-            this.data = this.items.find(x => x.id == this.id)
+            this.$apollo.query({
+                query: GET_NFT_DETAIL,
+                variables: { 
+                    tokenId: this.id,
+                }
+            }).then((response) => {
+                this.data = getData(response, this.fetchNftModule)
+            }).catch((error) => {
+                let message = getErrorMessage(error.graphQLErrors)
+                this.$toast.error(message);
+            })
+        },
+        async getNftData() {
+            await this.$apollo.query({
+                query: GET_OWNER_NFT,
+                variables: { 
+                    address: getAddress(),
+                }
+            }).then((response) => {
+                this.nfts = getData(response, this.ownerNFTModule)
+            }).catch((error) => {
+                let message = getErrorMessage(error.graphQLErrors)
+                this.$toast.error(message);
+            })
         },
         handelIncrease(state) {
             this[state] += 1
@@ -132,21 +199,28 @@ export default {
         handelDecrease(state) {
             this[state] -= 1
         },
-        showModal() {
+        showModalHand() {
             if(!this.isSelectTimes()) {
-                alert("You must choose times to find and times to wins");
+                this.$toast.error("You must choose times to find and times to wins");
                 return
             }
             this.handInModal = [...this.hands]
-            this.$refs.modal.classList.toggle("in")
+            this.showModal("modal")
+        },
+        showModalNft() {
+            this.tokenIdInModal = this.tokenId
+            this.showModal("modal-nft")
+        },
+        showModal(ref) {
+            this.$refs[ref].classList.toggle("in")
             document.body.classList.toggle("modal-open");
-            this.$refs.modal.style.display="block"
+            this.$refs[ref].style.display = "block"
             this.$emit("changeModal", true)
         },
-        closeModal() {
-            this.$refs.modal.classList.toggle("in")
+        closeModal(ref) {
+            this.$refs[ref].classList.toggle("in")
             document.body.classList.toggle("modal-open");
-            this.$refs.modal.style.display=""
+            this.$refs[ref].style.display = ""
             this.$emit("changeModal", false)
         },
         isSelectTimes() {
@@ -155,16 +229,54 @@ export default {
             }
             return true
         },
+        isSelectNft() {
+            return this.tokenIdInModal !== ""
+        },
+        isSelectHand() {
+            console.log(this.hands.length)
+            return this.hands.length != 0
+        },
         chooseHand(hand) {
             if(this.handInModal.length == this.timeToFight){
-                alert("You haven choosen enough hand");
+                this.$toast.error("You haven choosen enough hand");
                 return
             }
             this.handInModal.push(hand)
         },
         confirmHand() {
             this.hands = [...this.handInModal]
-            this.closeModal()
+            this.closeModal('modal')
+        },
+        chooseNft(tokenId) {
+            this.tokenIdInModal = tokenId
+        },
+        confirmNft() {
+            this.tokenId = this.tokenIdInModal
+            this.closeModal('modal-nft')
+        },
+        async sendFightRequest() {
+            if(!this.isSelectTimes()) {
+                this.$toast.error("You must choose times to find and times to wins");
+                return
+            }
+
+            if(!this.isSelectHand()) {
+                this.$toast.error("You must choose hands");
+                return
+            }
+
+            if(!this.isSelectNft()) {
+                this.$toast.error("You must choose bit nft");
+                return
+            }
+
+            try {
+                await appoveToken(this.tokenId)
+                const response = await makeOffer(this.tokenId, this.id, this.hands, this.timeToWin)
+                console.log(response)
+            } catch(error) {
+                this.$toast.error(error.message);
+            }
         }
     }
 }

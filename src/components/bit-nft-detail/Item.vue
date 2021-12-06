@@ -3,7 +3,7 @@
         <div class="item-content">
             <div class="thumbnails">
                 <div class="thumb">
-                <img src="@frontend/assets/images/icon.png" alt="menu" />
+                <img :src="image" alt="menu" />
                 </div>
             </div>
             <div class="content">

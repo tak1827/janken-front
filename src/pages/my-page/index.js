@@ -2,6 +2,7 @@ import Send from '@/pages/my-page/offers/Send.vue'
 import Receive from '@/pages/my-page/offers/Receive.vue'
 import Asset from '@/pages/my-page/Asset.vue'
 import BattleResult from '@/pages/my-page/BattleResult.vue'
+import MintNFT from '@/pages/my-page/MintNFT.vue'
 import auth from '@/middleware/auth';
 export default [
     {
@@ -32,6 +33,14 @@ export default [
       path: '/mypage/battle-result',
       component: BattleResult,
       name: 'mypage.battle.result',
+      meta: {
+        middleware: [auth]
+      }
+    },
+    {
+      path: '/mypage/mint-nft',
+      component: MintNFT,
+      name: 'mypage.mint.nft',
       meta: {
         middleware: [auth]
       }

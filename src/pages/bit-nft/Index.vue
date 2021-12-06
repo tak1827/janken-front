@@ -61,13 +61,12 @@
             <div class="content-wapper-page">
                 <div class="content-page">
                     <ul class="list-item">
-                        <li class="item is-content" v-for="(item, index) in nfts" v-bind:key="tokens[index]">
+                        <li class="item is-content" v-for="item in nfts" v-bind:key="item.token_id">
                             <BitNftItem 
-                                title="item.title"
-                                :id="tokens[index]" 
-                                name="item.name" 
+                                :id="item.tokenId" 
+                                :name="item.name" 
                                 :owner="item.owner" 
-                                :image="item.public_metadata.token_uri" 
+                                :image="item.image" 
                             />
                         </li>
                     </ul>
@@ -81,7 +80,9 @@
 <script>
 import BitNftItem from '@/components/bit-nft/Item.vue'
 import { defaultData } from '@/utils/constants'
-import { getAllTokens, getNumOfTokens, getNftDetail } from '@/utils/wallet'
+import { getNumOfTokens } from '@/utils/wallet'
+import { getErrorMessage, getData } from '@/utils/api_response'
+import { GET_ALL_NFT } from '@/utils/graphql'
 export default {
     components: {
         BitNftItem,
@@ -98,7 +99,8 @@ export default {
             nfts: [],
             tokens: [],
             page_count: 0,
-            numOfTokens: 1
+            numOfTokens: 1,
+            allNftModule: "fetchAllNFTs"
         }
     },
     computed: {
@@ -114,7 +116,7 @@ export default {
         this.$emit('changeBanner', true)
     },
     async mounted() {
-        await this.getNftData()
+        this.getNftData()
         await this.getNumOfTokens()
         this.setPageCount()
     },
@@ -123,18 +125,14 @@ export default {
             console.log(pageNum)
         },
         async getNftData() {
-            const response = await getAllTokens(this.meta)
-            const tokenList = response.token_list.tokens
-            this.tokens = tokenList
-            const data = []
-            for (const tokenId of tokenList) {
-                const nftResponse = await getNftDetail(tokenId)
-                if(nftResponse.nft_dossier) {
-                    data.push(nftResponse.nft_dossier)
-                }
-            }
-            this.nfts = [...data]
-            console.log(this.nfts)
+            this.$apollo.query({
+                query: GET_ALL_NFT,
+            }).then((response) => {
+                this.nfts = getData(response, this.allNftModule)
+            }).catch((error) => {
+                let message = getErrorMessage(error.graphQLErrors)
+                this.$toast.error(message);
+            })
         },
         async getNumOfTokens() {
             const response = await getNumOfTokens()

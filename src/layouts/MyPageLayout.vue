@@ -20,6 +20,7 @@
                                             <span class="cnt-sub">janken1gdg6scaqe…</span>
                                         </div>
                                         <ul class="page-sidebar-mypage" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                                            <li class="menu-active"><router-link :to="{ name: 'mypage.mint.nft'}">Mint NFT</router-link></li>
                                             <li class="menu-active"><router-link :to="{ name: 'mypage.asset'}">My ASSET</router-link></li>
                                             <li>
                                                 <router-link :to="{ name: 'mypage.offers.send'}">Offers</router-link>

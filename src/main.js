@@ -5,9 +5,15 @@ import "@frontend/libs/metronic-admin/global/plugins/font-awesome/css/font-aweso
 import "@frontend/libs/metronic-admin/global/plugins/bootstrap/css/bootstrap.min.css"
 import "@frontend/assets/css/admin.css"
 
+import apolloProvider from './plugins/apolloClient'
+
 import VueRouter from 'vue-router'
 import routers from './routes'
 
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+
+Vue.use(Toast, {});
 Vue.use(VueRouter)
 
 Vue.config.productionTip = false
@@ -47,6 +53,7 @@ router.beforeEach((to, from, next) => {
 });
 
 new Vue({
+  apolloProvider,
   router,
   render: h => h(App), 
 }).$mount('#app')

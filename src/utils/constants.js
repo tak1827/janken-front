@@ -16,6 +16,11 @@ export const HAND_TO_TEXT = {
     3: "scissors"
 }
 
+export const status = {
+    OFFERED: "Offered",
+    DECLINED: "Declined"
+}
+
 export const defaultData = [
     {
         name: "Axie Infinity",
