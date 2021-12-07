@@ -4,8 +4,10 @@
             <li class="item">
                 <div class="title-mypage">MINE</div>
                 <Item 
-                    owner="janken1gdg6scaqe..." 
-                    name="Axie Infinity"
+                    :image="item.offereeNFT.image"
+                    :owner="item.offereeNFT.owner" 
+                    :name="item.offereeNFT.name"
+                    :id="item.offereeNFT.tokenId"
                 />
             </li>
             <li class="item">
@@ -23,8 +25,10 @@
             <li class="item">
                 <div class="title-mypage">Opponent's</div>
                 <Item 
-                    owner="janken1gdg6scaqe..." 
-                    name="Axie Infinity"
+                    :image="item.offerorNFT.image"
+                    :owner="item.offerorNFT.owner" 
+                    :name="item.offerorNFT.name"
+                    :id="item.offerorNFT.tokenId"
                 />
             </li>
         </ul>
@@ -72,7 +76,7 @@ import ImageHand from '@/components/ImageHand.vue'
 import { GET_OFFERS } from '@/utils/graphql'
 import { getErrorMessage, getData } from '@/utils/api_response'
 import { HAND } from '@/utils/constants'
-// import { getAddress } from '@/utils/wallet'
+import { getAddress } from '@/utils/wallet'
 export default {
     data() {
         return {
@@ -111,7 +115,7 @@ export default {
             await this.$apollo.query({
                 query: GET_OFFERS,
                 variables: { 
-                    address: "secret1ux8zlapmueayed2zj7u2uddnhx3lh9hw660ddv",
+                    address: getAddress(),
                     type: "RECEIVE"
                 }
             }).then((response) => {
