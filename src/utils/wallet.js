@@ -163,6 +163,17 @@ export async function acceptOffer(offerId, hands = []) {
     return response
 }
 
+export async function declineOffer(offerId) {
+    const client = getClient();
+    const handleMsg = {
+        decline_offer: {
+          id: offerId
+        }
+      }
+    const response = await client.execute(process.env.VUE_APP_JANKEN_CONTRACT, handleMsg)
+    return response
+}
+
 
 export async function appoveToken(tokenId) {
     const client = getClient();

@@ -73,7 +73,7 @@ import WinCondition from "@/components/WinCondition.vue"
 import Item from '@/components/bit-nft/Item.vue'
 import Hand from '@/components/Hand.vue'
 import ImageHand from '@/components/ImageHand.vue'
-import { GET_OFFERS, ACCEPT_OFFER } from '@/utils/graphql'
+import { GET_OFFERS, ACCEPT_OFFER, DECLINE_OFFER } from '@/utils/graphql'
 import { getErrorMessage, getData } from '@/utils/api_response'
 import { HAND } from '@/utils/constants'
 import { getAddress, appoveToken, acceptOffer } from '@/utils/wallet'
@@ -112,8 +112,10 @@ export default {
             this.showModal()
             
         },
-        handelDecline(value) {
-            console.log(value)
+        async handelDecline(offerId) {
+            if(confirm("Do you want to decline this offerr?")) {
+                this.declineOffer(offerId)
+            }
         },
         async getOffersData() {
             await this.$apollo.query({
@@ -161,10 +163,20 @@ export default {
                 this.$toast.error(message);
             })
         },
+        async declineOffer(offerId) {
+            this.$apollo.mutate({
+                mutation: DECLINE_OFFER,
+                variables: {
+                    offerId: offerId,
+                }
+            }).catch((error) => {
+                let message = getErrorMessage(error.graphQLErrors)
+                this.$toast.error(message);
+            })
+        },
         async confirmHand() {
             try {
                 const tokenId = this.tokenId.toString()
-                console.log(tokenId)
                 await appoveToken(tokenId)
                 await acceptOffer(this.offerId, this.handInModal)
                 const result = await this.acceptOffer(this.offerId, this.handInModal)

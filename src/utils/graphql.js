@@ -121,12 +121,24 @@ export const MAKE_OFFER = gql`
 
 export const ACCEPT_OFFER = gql`
   mutation ACCEPT_OFFER (
-    $offerId: Int!
+    $offerId: Int!,
     $offereeHands: [Int!],
   ) {
     postAcceptOffer(input: {
       offerId: $offerId,
       offereeHands: $offerorHands,
+    }) {
+      status
+    }
+  }
+`
+
+export const DECLINE_OFFER = gql`
+  mutation DECLINE_OFFER (
+    $offerId: Int!
+  ) {
+    postDeclineOffer(input: {
+      offerId: $offerId,
     }) {
       status
     }
