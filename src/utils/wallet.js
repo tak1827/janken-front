@@ -137,6 +137,7 @@ export async function makeOffer(offerId, offerorTokenId, offereeTokenId, hands =
     const client = getClient();
     const NFT_CONTRACT_ADDRESS = process.env.VUE_APP_CONSTRACT_ADDRESS
     const NFT_CONTRACT_CODE_HASH = process.env.VUE_APP_CONSTRACT_CODE_HASH
+    console.log(NFT_CONTRACT_CODE_HASH)
     const param = {
         id: offerId,
         offeree: getAddress(),

@@ -15,7 +15,7 @@
                     <div class="cnt-detai-right">
                         <div class="cnt-detail-top">
                             <h3 class="text-my-nft">MyOriginalNFT fuga</h3>
-                            <button class="btn btn-chose-nft" @click="showModal('modal-nft')">CHOOSE BIT NFT</button>
+                            <button class="btn btn-chose-nft" @click="showModalNft()">CHOOSE BIT NFT</button>
                         </div>
                         <div class="cnt-time">
                             <ul>
@@ -130,7 +130,7 @@ import ImageHand from '@/components/ImageHand.vue'
 import { defaultData, HAND } from '@/utils/constants'
 import { GET_NFT_DETAIL, GET_OWNER_NFT, MAKE_OFFER } from '@/utils/graphql'
 import { getErrorMessage, getData } from '@/utils/api_response'
-import { getAddress, makeOffer, appoveToken, getRandomID } from '@/utils/wallet'
+import { getAddress, makeOffer, appoveToken, getRandomID, connectWallet } from '@/utils/wallet'
 export default {
     components: {
         TagBack,
@@ -162,7 +162,6 @@ export default {
     },
     mounted () {
         this.getData()
-        this.getNftData()
     },
     methods: {
         getData() {
@@ -222,7 +221,9 @@ export default {
             this.handInModal = [...this.hands]
             this.showModal("modal")
         },
-        showModalNft() {
+        async showModalNft() {
+            await connectWallet()
+            await this.getNftData()
             this.tokenIdInModal = this.tokenId
             this.showModal("modal-nft")
         },
