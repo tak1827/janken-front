@@ -9,6 +9,9 @@
                         </div>
                     </div>
                     <div class="container" v-else>
+                        <div class="cnt-link-wallet" style="width: auto">
+                            <a href="javascript:void(0)" @click="logout">Logout</a>
+                        </div>
                         <div class="cnt-link-wallet">
                             <router-link :to="{ name: 'mypage.asset'}">{{ address }}</router-link>
                         </div>
@@ -40,6 +43,10 @@ export default {
         },
         getAddress() {
             this.address = localStorage.getItem("address", "");
+        },
+        logout() {
+            localStorage.removeItem("address");
+            this.$router.push({name: 'home'})
         }
     }
 }
