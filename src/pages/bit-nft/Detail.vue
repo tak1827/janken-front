@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal modal-dialog-centered fade popup_customer" ref="modal-nft" id="popup-chose-hand" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal modal-dialog-centered fade popup_customer" ref="modal-nft" id="popup-chose-hand-update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -100,21 +100,21 @@
                         <div class="list-hand">
                              <h3>Your choose</h3>
                             <div class="row">
-                                <div class="col-md-4" v-for="item in nfts" v-bind:key="item.tokenId">
-                                    <li class="item is-content" @click="chooseNft(item.tokenId)">
-                                        <NftItem 
+                                <div class="col-md-4" v-for="item in nfts" v-bind:key="item.tokenId" @click="chooseNft(item.tokenId)">
+                                    <div class="item is-content" :class="activeClass(item.tokenId)" >
+                                        <Item 
                                             :id="item.tokenId" 
                                             :name="item.name" 
                                             :owner="item.owner" 
                                             :image="item.image" 
                                         />
-                                    </li>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-chose-nft" @click="confirmHand">Confirm</button>
+                        <button class="btn btn-chose-nft" @click="confirmNft">Confirm</button>
                     </div>
                 </div>
             </div>
@@ -126,12 +126,11 @@ import TagBack from '@/components/TagBack.vue'
 import UpDownTime from '@/components/UpDownTime.vue'
 import Hand from '@/components/Hand.vue'
 import Item from '@/components/bit-nft-detail/Item.vue'
-import NftItem from '@/components/bit-nft/Item.vue'
 import ImageHand from '@/components/ImageHand.vue'
 import { defaultData, HAND } from '@/utils/constants'
 import { GET_NFT_DETAIL, GET_OWNER_NFT } from '@/utils/graphql'
 import { getErrorMessage, getData } from '@/utils/api_response'
-import { makeOffer, getAddress, appoveToken } from '@/utils/wallet'
+import { getAddress, makeOffer, appoveToken } from '@/utils/wallet'
 export default {
     components: {
         TagBack,
@@ -139,7 +138,6 @@ export default {
         UpDownTime,
         Hand,
         ImageHand,
-        NftItem
     },
     data () {
         return {
@@ -251,6 +249,7 @@ export default {
             this.tokenIdInModal = tokenId
         },
         confirmNft() {
+            console.log(1)
             this.tokenId = this.tokenIdInModal
             this.closeModal('modal-nft')
         },
@@ -271,12 +270,16 @@ export default {
             }
 
             try {
-                await appoveToken(this.tokenId)
+                await appoveToken(this.tokenId.toString())
                 const response = await makeOffer(this.tokenId, this.id, this.hands, this.timeToWin)
                 console.log(response)
             } catch(error) {
+                console.log(error.message)
                 this.$toast.error(error.message);
             }
+        },
+        activeClass(tokenId) {
+            return tokenId == this.tokenIdInModal ? "active" : ""
         }
     }
 }
