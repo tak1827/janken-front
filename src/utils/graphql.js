@@ -37,8 +37,8 @@ export const GET_NFT_DETAIL = gql`
 `
 
 export const GET_OFFERS = gql`
-  query GET_OFFERS ($address: String!) {
-    fetchOffers (address: $address) {
+  query GET_OFFERS ($address: String!, $type: String!) {
+    fetchOffers (address: $address, type: $type) {
       offerId,
       status,
       offerorNFT {
@@ -91,6 +91,30 @@ export const UPLOAD_IMAGE = gql`
       filename,
       mimetype,
       encoding
+    }
+  }
+`
+
+export const MAKE_OFFER = gql`
+  mutation MAKE_OFFER (
+    $offerId: Int!
+    $offeror: String,
+    $offeree: String,
+    $offerorNFTTokenId: String,
+    $offereeNFTTokenId: String,
+    $offerorHands: [Int!],
+    $drawPoint: Int
+  ) {
+    postMakeOffer(input: {
+      offerId: $offerId,
+      offeror: $offeror,
+      offeree: $offeree,
+      offerorNFTTokenId: $offerorNFTTokenId,
+      offereeNFTTokenId: $offereeNFTTokenId,
+      offerorHands: $offerorHands,
+      drawPoint: $drawPoint
+    }) {
+      status
     }
   }
 `

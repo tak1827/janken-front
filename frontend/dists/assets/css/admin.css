@@ -629,7 +629,7 @@ ul {
   background-image: url(../../assets/images/bgr-page.png);
 }
 .home {
-  background-image: url(../../assets/images/bgr_home.png);
+  background-image: url(../../assets/images/bgr_home.jpg);
   min-height: 100vh;
   height: 100%;
   background-size: cover;
@@ -882,6 +882,10 @@ ul {
 }
 .page-content-wrapper .list-content .content-wapper-page .list-item .item .item-content .thumbnails {
   border-bottom: 2px solid #131211;
+}
+.page-content-wrapper .list-content .content-wapper-page .list-item .item .item-content .thumbnails img{
+  height:266px;
+  object-fit:cover;
 }
 .page-content-wrapper .list-content .content-wapper-page .list-item .item .item-content .text-name {
   position: absolute;
@@ -1445,6 +1449,10 @@ ul {
   line-height: 21px;
   color: #131211;
 }
+.mypage .item-mypage .item .item-content .content .cnt-detail {
+  display: flex;
+  align-items: center;
+}
 .mypage .item-mypage .item .item-content .content .cnt-detail .bgr-cnt {
   background-color: #efefef;
   border-radius: 12px;
@@ -1452,6 +1460,11 @@ ul {
   line-height: 24px;
   padding: 3px 10px;
   margin-left: 10px;
+  overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
 }
 .mypage .item-mypage .item .item-content .cnt-ratio {
   display: -webkit-box;

@@ -4,9 +4,10 @@
             <li class="item">
                 <div class="title-mypage">MINE</div>
                 <Item 
-                    :image="item.image"
+                    :image="item.offerorNFT.image"
                     :owner="item.offerorNFT.owner" 
                     :name="item.offerorNFT.name"
+                    :id="item.offerorNFT.tokenId"
                 />
             </li>
             <li class="item">
@@ -18,9 +19,10 @@
             <li class="item">
                 <div class="title-mypage">Opponent's</div>
                 <Item 
-                    :image="item.image"
+                    :image="item.offereeNFT.image"
                     :owner="item.offereeNFT.owner" 
                     :name="item.offereeNFT.name"
+                    :id="item.offereeNFT.tokenId"
                 />
             </li>
         </ul>
@@ -58,10 +60,11 @@ export default {
                 query: GET_OFFERS,
                 variables: { 
                     address: getAddress(),
+                    type: "SEND"
                 }
             }).then((response) => {
-                const offers = getData(response, this.fetchOffersModule)
-                this.offers = offers.find(x => x.offerorNFT.owner == getAddress())
+                this.offers = getData(response, this.fetchOffersModule)
+
             }).catch((error) => {
                 let message = getErrorMessage(error.graphQLErrors)
                 this.$toast.error(message);

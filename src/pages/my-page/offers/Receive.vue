@@ -112,6 +112,7 @@ export default {
                 query: GET_OFFERS,
                 variables: { 
                     address: "secret1ux8zlapmueayed2zj7u2uddnhx3lh9hw660ddv",
+                    type: "RECEIVE"
                 }
             }).then((response) => {
                 this.offers = getData(response, this.fetchOffersModule)

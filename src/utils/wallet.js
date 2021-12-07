@@ -133,13 +133,12 @@ export async function getRandomID() {
     return Math.floor(Math.random() * 100)
 }
 
-export async function makeOffer(offerorTokenId, offereeTokenId, hands = [], point) {
+export async function makeOffer(offerId, offerorTokenId, offereeTokenId, hands = [], point) {
     const client = getClient();
-    const id = await getRandomID();
     const NFT_CONTRACT_ADDRESS = process.env.VUE_APP_CONSTRACT_ADDRESS
     const NFT_CONTRACT_CODE_HASH = process.env.VUE_APP_CONSTRACT_CODE_HASH
     const param = {
-        id: id,
+        id: offerId,
         offeree: getAddress(),
         offeror_nft_contract: NFT_CONTRACT_ADDRESS,
         offeror_nft: offerorTokenId,
@@ -155,11 +154,15 @@ export async function makeOffer(offerorTokenId, offereeTokenId, hands = [], poin
 }
 
 export async function appoveToken(tokenId) {
+    console.log(tokenId)
     const client = getClient();
-    const param = {
-        spender: process.env.VUE_APP_JANKEN_CONTRACT,
-        token_id: tokenId
+    const queryParam = {
+        approve: {
+            spender: 'secret1uuvpqvyzahqujlk96um2jw6tts5sy7eev6datx',
+            token_id: '20'
+          }
     }
-    const response = await client.execute(process.env.VUE_APP_CONSTRACT_ADDRESS, { "approve": param })
+    console.log(queryParam)
+    const response = await client.execute(process.env.VUE_APP_CONSTRACT_ADDRESS, queryParam)
     return response
 }

@@ -128,9 +128,9 @@ import Hand from '@/components/Hand.vue'
 import Item from '@/components/bit-nft-detail/Item.vue'
 import ImageHand from '@/components/ImageHand.vue'
 import { defaultData, HAND } from '@/utils/constants'
-import { GET_NFT_DETAIL, GET_OWNER_NFT } from '@/utils/graphql'
+import { GET_NFT_DETAIL, GET_OWNER_NFT, MAKE_OFFER } from '@/utils/graphql'
 import { getErrorMessage, getData } from '@/utils/api_response'
-import { getAddress, makeOffer, appoveToken } from '@/utils/wallet'
+import { getAddress, makeOffer, appoveToken, getRandomID } from '@/utils/wallet'
 export default {
     components: {
         TagBack,
@@ -143,7 +143,7 @@ export default {
         return {
             items: defaultData,
             data: {},
-            id: this.$route.params.id,
+            id: this.$route.params.id.toString(),
             timeToFight: 0,
             timeToWin: 0,
             hands: [],
@@ -191,6 +191,23 @@ export default {
                 this.$toast.error(message);
             })
         },
+        async makeOffer(offerId, offeror, offeree, offerorNFTTokenId, offereeNFTTokenId, offerorHands, drawPoint) {
+            this.$apollo.mutate({
+                mutation: MAKE_OFFER,
+                variables: {
+                    offerId: offerId,
+                    offeror: offeror,
+                    offeree: offeree,
+                    offerorNFTTokenId: offerorNFTTokenId,
+                    offereeNFTTokenId: offereeNFTTokenId,
+                    offerorHands: offerorHands,
+                    drawPoint: drawPoint
+                }
+            }).catch((error) => {
+                let message = getErrorMessage(error.graphQLErrors)
+                this.$toast.error(message);
+            })
+        },
         handelIncrease(state) {
             this[state] += 1
         },
@@ -231,7 +248,6 @@ export default {
             return this.tokenIdInModal !== ""
         },
         isSelectHand() {
-            console.log(this.hands.length)
             return this.hands.length != 0
         },
         chooseHand(hand) {
@@ -249,7 +265,6 @@ export default {
             this.tokenIdInModal = tokenId
         },
         confirmNft() {
-            console.log(1)
             this.tokenId = this.tokenIdInModal
             this.closeModal('modal-nft')
         },
@@ -270,9 +285,15 @@ export default {
             }
 
             try {
-                await appoveToken(this.tokenId.toString())
-                const response = await makeOffer(this.tokenId, this.id, this.hands, this.timeToWin)
-                console.log(response)
+                const tokenId = this.tokenId.toString()
+                const offerId = await getRandomID()
+                await appoveToken(tokenId)
+                await makeOffer(offerId, tokenId, this.id, this.hands, this.timeToWin)
+                console.log(offerId, getAddress(), this.data.owner, tokenId, this.id, this.hands, this.timeToWin)
+                const result = await this.makeOffer(offerId, getAddress(), this.data.owner, tokenId, this.id, this.hands, this.timeToWin)
+                console.log(result)
+                this.resetForm()
+                this.$toast.success('Send fight request success')
             } catch(error) {
                 console.log(error.message)
                 this.$toast.error(error.message);
@@ -280,6 +301,16 @@ export default {
         },
         activeClass(tokenId) {
             return tokenId == this.tokenIdInModal ? "active" : ""
+        },
+        resetForm() {
+            this.timeToFight = 0
+            this.timeToWin= 0
+            this.hands= []
+            this.handInModal= []
+            this.handConstant= HAND
+            this.nfts= []
+            this.tokenId= ""
+            this.tokenIdInModal= ""
         }
     }
 }
