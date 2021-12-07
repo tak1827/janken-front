@@ -13,7 +13,7 @@
             <li class="item">
                 <div class="item-content">
                     <div class="text-title">Win condition</div>
-                    <WinCondition :timeToFight="item.offereeHands.length" :timeToWin="item.drawPoint"/>
+                    <WinCondition :timeToFight="item.offerorHands.length" :timeToWin="item.drawPoint"/>
                     <div class="cnt-send-request">
                         <button class="btn btn-chose-nft" @click="handelSendFight(item.offerId)">Send Fight Request</button>
                     </div>
@@ -76,7 +76,7 @@ import ImageHand from '@/components/ImageHand.vue'
 import { GET_OFFERS, ACCEPT_OFFER, DECLINE_OFFER } from '@/utils/graphql'
 import { getErrorMessage, getData } from '@/utils/api_response'
 import { HAND } from '@/utils/constants'
-import { getAddress, appoveToken, acceptOffer } from '@/utils/wallet'
+import { getAddress, appoveToken, acceptOffer, declineOffer } from '@/utils/wallet'
 export default {
     data() {
         return {
@@ -108,13 +108,15 @@ export default {
             console.log(offerDetail)
             this.offerId = offerDetail.offerId
             this.tokenId = offerDetail.offereeNFT.tokenId
-            this.timeToFight = offerDetail.offereeHands.length
+            this.timeToFight = offerDetail.offerorHands.length
             this.showModal()
             
         },
         async handelDecline(offerId) {
             if(confirm("Do you want to decline this offerr?")) {
-                this.declineOffer(offerId)
+                await declineOffer(offerId)
+                await this.declineOffer(offerId)
+                this.$toast.success('Success to decline')
             }
         },
         async getOffersData() {

@@ -13,7 +13,7 @@
             <li class="item">
                 <div class="item-content">
                     <div class="text-title">Win condition</div>
-                    <WinCondition :timeToFight="item.offereeHands.length"/>
+                    <WinCondition :timeToFight="item.offerorHands.length"/>
                 </div>
             </li>
             <li class="item">
@@ -49,12 +49,6 @@ export default {
         await this.getOffersData()
     },
     methods: {
-        handelSendFight(value) {
-            console.log(value)
-        },
-        handelDecline(value) {
-            console.log(value)
-        },
         async getOffersData() {
             await this.$apollo.query({
                 query: GET_OFFERS,

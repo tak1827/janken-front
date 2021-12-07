@@ -126,7 +126,7 @@ export const ACCEPT_OFFER = gql`
   ) {
     postAcceptOffer(input: {
       offerId: $offerId,
-      offereeHands: $offerorHands,
+      offereeHands: $offereeHands,
     }) {
       status
     }

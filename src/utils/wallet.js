@@ -133,14 +133,14 @@ export async function getRandomID() {
     return Math.floor(Math.random() * 100)
 }
 
-export async function makeOffer(offerId, offerorTokenId, offereeTokenId, hands = [], point) {
+export async function makeOffer(offerId, owner, offerorTokenId, offereeTokenId, hands = [], point) {
     const client = getClient();
     const NFT_CONTRACT_ADDRESS = process.env.VUE_APP_CONSTRACT_ADDRESS
     const NFT_CONTRACT_CODE_HASH = process.env.VUE_APP_CONSTRACT_CODE_HASH
     console.log(NFT_CONTRACT_CODE_HASH)
     const param = {
         id: offerId,
-        offeree: getAddress(),
+        offeree: owner,
         offeror_nft_contract: NFT_CONTRACT_ADDRESS,
         offeror_nft: offerorTokenId,
         offeror_code_hash: NFT_CONTRACT_CODE_HASH,
