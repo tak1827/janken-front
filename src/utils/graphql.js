@@ -118,3 +118,17 @@ export const MAKE_OFFER = gql`
     }
   }
 `
+
+export const ACCEPT_OFFER = gql`
+  mutation ACCEPT_OFFER (
+    $offerId: Int!
+    $offereeHands: [Int!],
+  ) {
+    postAcceptOffer(input: {
+      offerId: $offerId,
+      offereeHands: $offerorHands,
+    }) {
+      status
+    }
+  }
+`

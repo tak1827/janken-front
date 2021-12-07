@@ -13,7 +13,7 @@
             <li class="item">
                 <div class="item-content">
                     <div class="text-title">Win condition</div>
-                    <WinCondition/>
+                    <WinCondition :timeToFight="item.offereeHands.length" :timeToWin="item.drawPoint"/>
                     <div class="cnt-send-request">
                         <button class="btn btn-chose-nft" @click="handelSendFight(item.offerId)">Send Fight Request</button>
                     </div>
@@ -73,19 +73,20 @@ import WinCondition from "@/components/WinCondition.vue"
 import Item from '@/components/bit-nft/Item.vue'
 import Hand from '@/components/Hand.vue'
 import ImageHand from '@/components/ImageHand.vue'
-import { GET_OFFERS } from '@/utils/graphql'
+import { GET_OFFERS, ACCEPT_OFFER } from '@/utils/graphql'
 import { getErrorMessage, getData } from '@/utils/api_response'
 import { HAND } from '@/utils/constants'
-import { getAddress } from '@/utils/wallet'
+import { getAddress, appoveToken, acceptOffer } from '@/utils/wallet'
 export default {
     data() {
         return {
             offers: [],
             fetchOffersModule: "fetchOffers",
-            hands: [],
             handInModal: [],
             handConstant: HAND,
-            timeToFight: 0
+            timeToFight: 0,
+            tokenId: "",
+            offerId: ""
         }
     },
     components: {
@@ -99,14 +100,17 @@ export default {
     },
     methods: {
         handelSendFight(offerId) {
-            const offerDetail = this.offers.find(x => x.offerId == offerId)
+            const [offerDetail] = this.offers.filter(x => x.offerId == offerId)
             if(offerDetail == undefined) {
                 this.$toast.error("Can not find offer")
                 return
             }
-            this.timeToFight = offerDetail.offerorHands.length
+            console.log(offerDetail)
+            this.offerId = offerDetail.offerId
+            this.tokenId = offerDetail.offereeNFT.tokenId
+            this.timeToFight = offerDetail.offereeHands.length
             this.showModal()
-            console.log(offerId)
+            
         },
         handelDecline(value) {
             console.log(value)
@@ -120,15 +124,13 @@ export default {
                 }
             }).then((response) => {
                 this.offers = getData(response, this.fetchOffersModule)
-                // this.offers = offers.find(x => x.offereeNFT.owner == getAddress())
-                console.log(this.offers)
             }).catch((error) => {
                 let message = getErrorMessage(error.graphQLErrors)
                 this.$toast.error(message);
             })
         },
         showModal() {
-            this.handInModal = [...this.hands]
+            this.handInModal = []
             this.$refs.modal.classList.toggle("in")
             document.body.classList.toggle("modal-open");
             this.$refs.modal.style.display="block"
@@ -147,8 +149,32 @@ export default {
             }
             this.handInModal.push(hand)
         },
-        confirmHand() {
-            this.hands = [...this.handInModal]
+        async acceptOffer(offerId, hands) {
+            this.$apollo.mutate({
+                mutation: ACCEPT_OFFER,
+                variables: {
+                    offerId: offerId,
+                    offereeHands: hands,
+                }
+            }).catch((error) => {
+                let message = getErrorMessage(error.graphQLErrors)
+                this.$toast.error(message);
+            })
+        },
+        async confirmHand() {
+            try {
+                const tokenId = this.tokenId.toString()
+                console.log(tokenId)
+                await appoveToken(tokenId)
+                await acceptOffer(this.offerId, this.handInModal)
+                const result = await this.acceptOffer(this.offerId, this.handInModal)
+                console.log(result)
+                this.resetForm()
+                this.$toast.success('Send fight request success')
+            } catch(error) {
+                console.log(error.message)
+                this.$toast.error(error.message);
+            }
             this.closeModal()
         },
     }

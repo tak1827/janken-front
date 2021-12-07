@@ -289,9 +289,7 @@ export default {
                 const offerId = await getRandomID()
                 await appoveToken(tokenId)
                 await makeOffer(offerId, tokenId, this.id, this.hands, this.timeToWin)
-                console.log(offerId, getAddress(), this.data.owner, tokenId, this.id, this.hands, this.timeToWin)
-                const result = await this.makeOffer(offerId, getAddress(), this.data.owner, tokenId, this.id, this.hands, this.timeToWin)
-                console.log(result)
+                await this.makeOffer(offerId, getAddress(), this.data.owner, tokenId, this.id, this.hands, this.timeToWin)
                 this.resetForm()
                 this.$toast.success('Send fight request success')
             } catch(error) {

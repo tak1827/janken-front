@@ -153,13 +153,23 @@ export async function makeOffer(offerId, offerorTokenId, offereeTokenId, hands =
     return response
 }
 
+export async function acceptOffer(offerId, hands = []) {
+    const client = getClient();
+    const param = {
+        id: offerId,
+        offeree_hands: hands,
+    }
+    const response = await client.execute(process.env.VUE_APP_JANKEN_CONTRACT, { "accept_offer": param })
+    return response
+}
+
+
 export async function appoveToken(tokenId) {
-    console.log(tokenId)
     const client = getClient();
     const queryParam = {
         approve: {
-            spender: 'secret1uuvpqvyzahqujlk96um2jw6tts5sy7eev6datx',
-            token_id: '20'
+            spender: getAddress(),
+            token_id: tokenId
           }
     }
     console.log(queryParam)
