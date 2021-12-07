@@ -104,12 +104,20 @@ export default {
                     }
                 }).then(() => {
                     this.$toast.success("Mint NFT success");
+                    this.resetForm()
                 }).catch((error) => {
                     console.log(error)
                     let message = getErrorMessage(error.graphQLErrors)
                     this.$toast.error(message);
                 })
         },
+        resetForm() {
+            this.form = {
+                name: "",
+                description: "",
+                image: "",
+            }
+        }
     }
 }
 </script>

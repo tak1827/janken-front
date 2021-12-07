@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="cnt-send-request">
+                        <div class="cnt-send-request" v-if="!isOwner()">
                             <button class="btn btn-chose-nft" @click="sendFightRequest">Send Fight Request</button>
                         </div>
                     </div>
@@ -310,6 +310,9 @@ export default {
             this.nfts= []
             this.tokenId= ""
             this.tokenIdInModal= ""
+        },
+        isOwner() {
+            return getAddress() == this.data.owner
         }
     }
 }
