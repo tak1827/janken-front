@@ -4,56 +4,16 @@
             <div class="page-sidebar-wrapper vetical-menu">
                 <div class="page-sidebar navbar-collapse collapse">
                     <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                    <li class="menu-active">
-                        <h3><span class="title">
-                            Collection</span></h3>
-                        <div class="list-check">
-
-                        <div class="form-check">
-                            <input class="form-check-input" id="exampleCheck1" type="checkbox"/>
-                            <label class="form-check-label" for="exampleCheck1">Axie  Infinity</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" id="exampleCheck2" type="checkbox"/>
-                            <label class="form-check-label" for="exampleCheck2">Axie  Infinity</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" id="exampleCheck3" type="checkbox"/>
-                            <label class="form-check-label" for="exampleCheck3">Axie  Infinity</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" id="exampleCheck4" type="checkbox"/>
-                            <label class="form-check-label" for="exampleCheck4">Axie  Infinity</label>
-                        </div>
-                        </div>
-                    </li>
-                    <li class="menu-active">
-                        <h3>
-                            <span class="title">
-                                Collection
-                            </span>
-                        </h3>
-                        <div class="list-check">
-
-                        <div class="form-check">
-                            <input class="form-check-input" id="exampleCheck1" type="checkbox"/>
-                            <label class="form-check-label" for="exampleCheck1">Axie  Infinity</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" id="exampleCheck2" type="checkbox"/>
-                            <label class="form-check-label" for="exampleCheck2">Axie  Infinity</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" id="exampleCheck3" type="checkbox"/>
-                            <label class="form-check-label" for="exampleCheck3">Axie  Infinity</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" id="exampleCheck4" type="checkbox"/>
-                            <label class="form-check-label" for="exampleCheck4">Axie  Infinity</label>
-                        </div>
-
-                        </div>
-                    </li>
+                        <li class="menu-active">
+                            <h3><span class="title">
+                                Collection</span></h3>
+                            <div class="list-check">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="exampleCheck1" type="checkbox"/>
+                                    <label class="form-check-label" for="exampleCheck1">Hope</label>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
