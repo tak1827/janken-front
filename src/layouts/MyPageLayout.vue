@@ -17,7 +17,7 @@
                                     <div class="cnt-side-mypage">
                                         <div class="cnt-mypage">
                                             <h3>Mypage</h3>
-                                            <span class="cnt-sub">janken1gdg6scaqe…</span>
+                                            <span class="cnt-sub" v-tooltip="{ content: `${getAddress()}` }">{{ getAddress() }}</span>
                                         </div>
                                         <ul class="page-sidebar-mypage" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                                             <li class="menu-active" :class="classActive('mypage.mint.nft')"><router-link :to="{ name: 'mypage.mint.nft'}">Mint NFT</router-link></li>
@@ -49,6 +49,7 @@
 <script>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
+import { getAddress } from '@/utils/wallet'
 export default {
     components: {
         Header,
@@ -65,6 +66,9 @@ export default {
         },
         classActive(routeName) {
             return this.$route.name == routeName ? 'active' : ''
+        },
+        getAddress() {
+            return getAddress()
         }
     },
 }

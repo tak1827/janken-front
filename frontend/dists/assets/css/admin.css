@@ -1295,6 +1295,11 @@ ul {
   padding: 3px 10px;
   margin: 10px 0;
   display: inline-block;
+  display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 .mypage .page-sidebar .cnt-side-mypage .page-sidebar-mypage > li {
   padding: 0px 10px;
