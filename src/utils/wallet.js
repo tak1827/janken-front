@@ -4,7 +4,7 @@ export async function connectWallet() {
     const coinDenom = process.env.VUE_APP_DENOM;
     const coinMinimalDenom = process.env.VUE_APP_COIN_MINIMAL_DENOM;
     if (!window.getOfflineSigner || !window.keplr) {
-        alert("Please install keplr extension");
+        throw new Error("Please install keplr extension")
     } else {
         if (window.keplr.experimentalSuggestChain) {
             try {
@@ -75,7 +75,7 @@ export async function connectWallet() {
                 throw new Error(error.message)
             }
         } else {
-            alert("Please use the recent version of keplr extension");
+            throw new Error("Please use the recent version of keplr extension")
         }
     }
 }
