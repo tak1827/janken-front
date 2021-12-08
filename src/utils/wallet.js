@@ -72,7 +72,7 @@ export async function connectWallet() {
                 setAddress(address);
                 return address
             } catch (error) {
-                console.error(error)
+                throw new Error(error.message)
             }
         } else {
             alert("Please use the recent version of keplr extension");

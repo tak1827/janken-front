@@ -164,8 +164,13 @@ export default {
         this.getData()
     },
     methods: {
-        getData() {
-            this.$apollo.query({
+        async getData() {
+            let loader = this.$loading.show({
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                });
+            await this.$apollo.query({
                 query: GET_NFT_DETAIL,
                 variables: { 
                     tokenId: this.id,
@@ -176,6 +181,7 @@ export default {
                 let message = getErrorMessage(error.graphQLErrors)
                 this.$toast.error(message);
             })
+            loader.hide()
         },
         async getNftData() {
             await this.$apollo.query({
@@ -228,10 +234,14 @@ export default {
             this.showModal("modal")
         },
         async showModalNft() {
-            await connectWallet()
-            await this.getNftData()
-            this.tokenIdInModal = this.tokenId
-            this.showModal("modal-nft")
+            try {
+                await connectWallet()
+                await this.getNftData()
+                this.tokenIdInModal = this.tokenId
+                this.showModal("modal-nft")
+            } catch (error) {
+                this.$toast.error(error.message);
+            }
         },
         showModal(ref) {
             this.$refs[ref].classList.toggle("in")
