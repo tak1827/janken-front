@@ -1015,6 +1015,9 @@ ul {
 .list-content-detail .content-item-detail .cnt-detail-left .item .item-content .thumbnails {
   border-bottom: 2px solid #131211;
 }
+.list-content-detail .content-item-detail .cnt-detail-left .item .item-content .thumbnails .thumb img {
+  width: 100%;
+}
 .list-content-detail .content-item-detail .cnt-detail-left .item .item-content .content .cnt-detail span {
   font-size: 16px;
   line-height: 21px;
