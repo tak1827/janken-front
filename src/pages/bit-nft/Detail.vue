@@ -301,6 +301,11 @@ export default {
                 return
             }
 
+            let loader = this.$loading.show({
+                container: this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+            });
             try {
                 const tokenId = this.tokenId.toString()
                 const offerId = await getRandomID()
@@ -310,9 +315,9 @@ export default {
                 this.resetForm()
                 this.$toast.success('Send fight request success')
             } catch(error) {
-                console.log(error.message)
                 this.$toast.error(error.message);
             }
+            loader.hide()
         },
         activeClass(tokenId) {
             return tokenId == this.tokenIdInModal ? "active" : ""

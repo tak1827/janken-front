@@ -98,8 +98,8 @@ export default {
     created () {
         this.$emit('changeBanner', false)
     },
-    mounted () {
-        this.getBattlesData()
+    async mounted () {
+        await this.getBattlesData()
     },
     methods: {
         showModal(item) {
@@ -120,8 +120,13 @@ export default {
             this.$refs.modal.style.display=""
             this.$emit("changeModal", false)
         },
-        getBattlesData() {
-            this.$apollo.query({
+        async getBattlesData() {
+            let loader = this.$loading.show({
+                container: this.fullPage ? null : this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+            });
+            await this.$apollo.query({
                 query: GET_BATTLES,
                 variables: { 
                     address: getAddress(),
@@ -133,6 +138,7 @@ export default {
                 let message = getErrorMessage(error.graphQLErrors)
                 this.$toast.error(message);
             })
+            loader.hide()
         },
         formatData(data) {
             let result = []

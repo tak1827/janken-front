@@ -184,7 +184,6 @@ export async function appoveToken(tokenId) {
             token_id: tokenId
           }
     }
-    console.log(queryParam)
     const response = await client.execute(process.env.VUE_APP_CONSTRACT_ADDRESS, queryParam)
     return response
 }

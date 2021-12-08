@@ -21,7 +21,7 @@ export default {
     data() {
         return {
             nfts: [],
-            ownerNFTModule: "fetchNFTsByOwner"
+            ownerNFTModule: "fetchNFTsByOwner",
         }
     },
     components: {
@@ -32,6 +32,11 @@ export default {
     },
     methods: {
         async getNftData() {
+            let loader = this.$loading.show({
+                container: this.fullPage ? null : this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+            });
             await this.$apollo.query({
                 query: GET_OWNER_NFT,
                 variables: { 
@@ -43,6 +48,7 @@ export default {
                 let message = getErrorMessage(error.graphQLErrors)
                 this.$toast.error(message);
             })
+            loader.hide()
         },
     }
 }
