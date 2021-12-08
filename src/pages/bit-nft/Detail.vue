@@ -5,17 +5,17 @@
                 <TagBack :name="data.name"/>
                 <div class="content-item-detail">
                     <div class="cnt-detail-left">
-                        <Item 
-                            :image="data.image" 
-                            :description="data.description" 
-                            :owner="data.owner" 
+                        <Item
+                            :image="data.image"
+                            :description="data.description"
+                            :owner="data.owner"
                             :title="data.title"
                         />
                     </div>
                     <div class="cnt-detai-right">
                         <div class="cnt-detail-top">
                             <h3 class="text-my-nft">MyOriginalNFT fuga</h3>
-                            <button class="btn btn-chose-nft" @click="showModalNft()">CHOOSE BIT NFT</button>
+                            <button class="btn btn-chose-nft" @click="showModalNft()">CHOOSE BET NFT</button>
                         </div>
                         <div class="cnt-time">
                             <ul>
@@ -95,18 +95,18 @@
                     </div>
                     <div class="modal-body">
                         <div class="btn-chose-popup">
-                            <button class="btn btn-chose-nft">CHOOSE BIT NFT</button>
+                            <button class="btn btn-chose-nft">CHOOSE BET NFT</button>
                         </div>
                         <div class="list-hand">
                              <h3>Your choose</h3>
                             <div class="row">
                                 <div class="col-md-4" v-for="item in nfts" v-bind:key="item.tokenId" @click="chooseNft(item.tokenId)">
                                     <div class="item is-content" :class="activeClass(item.tokenId)" >
-                                        <Item 
-                                            :id="item.tokenId" 
-                                            :name="item.name" 
-                                            :owner="item.owner" 
-                                            :image="item.image" 
+                                        <Item
+                                            :id="item.tokenId"
+                                            :name="item.name"
+                                            :owner="item.owner"
+                                            :image="item.image"
                                         />
                                     </div>
                                 </div>
@@ -172,7 +172,7 @@ export default {
                 });
             await this.$apollo.query({
                 query: GET_NFT_DETAIL,
-                variables: { 
+                variables: {
                     tokenId: this.id,
                 }
             }).then((response) => {
@@ -186,7 +186,7 @@ export default {
         async getNftData() {
             await this.$apollo.query({
                 query: GET_OWNER_NFT,
-                variables: { 
+                variables: {
                     address: getAddress(),
                 }
             }).then((response) => {
@@ -297,7 +297,7 @@ export default {
             }
 
             if(!this.isSelectNft()) {
-                this.$toast.error("You must choose bit nft");
+                this.$toast.error("You must choose bet nft");
                 return
             }
 
