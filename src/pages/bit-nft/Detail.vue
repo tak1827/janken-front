@@ -9,12 +9,12 @@
                             :image="data.image" 
                             :description="data.description" 
                             :owner="data.owner" 
-                            :title="data.title"
+                            :title="data.name"
                         />
                     </div>
                     <div class="cnt-detai-right">
                         <div class="cnt-detail-top">
-                            <h3 class="text-my-nft">MyOriginalNFT fuga</h3>
+                            <h3 class="text-my-nft">{{ nftName }}</h3>
                             <button class="btn btn-chose-nft" @click="showModalNft()">CHOOSE BIT NFT</button>
                         </div>
                         <div class="cnt-time">
@@ -104,7 +104,7 @@
                                     <div class="item is-content" :class="activeClass(item.tokenId)" >
                                         <Item 
                                             :id="item.tokenId" 
-                                            :name="item.name" 
+                                            :title="item.name" 
                                             :owner="item.owner" 
                                             :image="item.image" 
                                         />
@@ -152,6 +152,7 @@ export default {
             fetchNftModule: "fetchNFT",
 
             nfts: [],
+            nftName: "Select your NFT",
             tokenId: "",
             tokenIdInModal: "",
             ownerNFTModule: "fetchNFTsByOwner"
@@ -283,6 +284,8 @@ export default {
         },
         confirmNft() {
             this.tokenId = this.tokenIdInModal
+            const result = this.nfts.find( ({ tokenId }) => tokenId === this.tokenIdInModal );
+            this.nftName = result.name
             this.closeModal('modal-nft')
         },
         async sendFightRequest() {

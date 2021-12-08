@@ -35,7 +35,7 @@
                 <div class="privew-cnt-mypage">
                 <div class="item">
                     <h3 class="title">
-                        {{ form.title }}</h3>
+                        {{ form.name }}</h3>
                     <div class="item-content">
                         <div class="thumbnails">
                             <div class="thumb">

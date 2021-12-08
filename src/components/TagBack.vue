@@ -8,7 +8,7 @@
         </div>
         <ul>
             <li>
-                <span>Collection</span>
+                <span>Hope</span>
             </li>
             <li>
                 <span>{{ name }}</span>

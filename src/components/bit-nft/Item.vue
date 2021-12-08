@@ -6,10 +6,10 @@
                         <img v-if="image != ''" :src="image" alt="menu"/>
                         <img v-else src="@frontend/assets/images/icon.png" alt="menu" />
                     </div>
-                    <div class="text-name">{{ name }}</div>
+                    <div class="text-name">Hope</div>
                 </div>
                 <div class="content">
-                    <h3 class="title"> <a href="#">Hope</a></h3>
+                    <h3 class="title"> <a href="#">{{ name }}</a></h3>
                     <div class="cnt-detail">
                         <span>Owner:</span>
                         <span class="bgr-cnt" v-tooltip="{ content: `${owner}` }">{{ owner }}</span>
