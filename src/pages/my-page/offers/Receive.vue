@@ -38,7 +38,7 @@
                     <div class="modal-header">
                         <button class="close" type="button" @click="closeModal"> <span>&times;</span></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" ref="formContainer">
                         <div class="btn-chose-popup">
                             <button class="btn btn-chose-nft">CHOOSE YOUR HAND</button>
                         </div>
@@ -86,7 +86,8 @@ export default {
             handConstant: HAND,
             timeToFight: 0,
             tokenId: "",
-            offerId: ""
+            offerId: "",
+            fullPage: true
         }
     },
     components: {
@@ -113,9 +114,21 @@ export default {
         },
         async handelDecline(offerId) {
             if(confirm("Do you want to decline this offerr?")) {
-                await declineOffer(offerId)
-                await this.declineOffer(offerId)
-                this.$toast.success('Success to decline')
+
+                let loader = this.$loading.show({
+                    container: this.fullPage ? null : this.$refs.formContainer,
+                    canCancel: true,
+                    onCancel: this.onCancel,
+                });
+                try {
+                    await declineOffer(offerId)
+                    await this.declineOffer(offerId)
+                    this.removeOffer(offerId)
+                    this.$toast.success('Success to decline')
+                } catch(error) {
+                    this.$toast.error(error.message);
+                }
+                loader.hide()
             }
         },
         async getOffersData() {
@@ -171,11 +184,6 @@ export default {
             })
         },
         async declineOffer(offerId) {
-            let loader = this.$loading.show({
-                container: this.fullPage ? null : this.$refs.formContainer,
-                canCancel: true,
-                onCancel: this.onCancel,
-            });
             await this.$apollo.mutate({
                 mutation: DECLINE_OFFER,
                 variables: {
@@ -185,11 +193,11 @@ export default {
                 let message = getErrorMessage(error.graphQLErrors)
                 this.$toast.error(message);
             })
-            loader.hide()
+            
         },
         async confirmHand() {
             let loader = this.$loading.show({
-                container: this.fullPage ? null : this.$refs.formContainer,
+                container: this.$refs.formContainer,
                 canCancel: true,
                 onCancel: this.onCancel,
             });
@@ -198,14 +206,13 @@ export default {
                 await appoveToken(tokenId)
                 await acceptOffer(this.offerId, this.handInModal)
                 await this.acceptOffer(this.offerId, this.handInModal)
-                this.$toast.success('Send fight request success')
                 this.removeOffer(this.offerId)
-                
+                this.$toast.success('Send fight request success')
+                this.closeModal()
             } catch(error) {
                 this.$toast.error(error.message);
             }
             loader.hide()
-            this.closeModal()
         },
         removeOffer(offerId) {
             this.offers = this.offers.filter(x => x.offerId != offerId)
