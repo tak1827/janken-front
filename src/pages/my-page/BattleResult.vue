@@ -14,8 +14,10 @@
                 <div class="item-content">
                     <div class="text-title">Win condition</div>
                     <WinCondition :timeToFight="item.offerorHands.length" :timeToWin="getDrawPoint(item)" />
-                    <ImageResult v-if="!isDecline(item)" :item="item" :isWin="isWin(item)" @clickResult="showModal(item)"/>
-                    <ImageResult v-else :item="item" :isWin="isWin(item)"/>
+                    <a href="javascript:void(0)">
+                        <ImageResult v-if="!isDecline(item)" :item="item" :isWin="isWin(item)" @clickResult="showModal(item)"/>
+                        <ImageResult v-else :item="item" :isWin="isWin(item)"/>
+                    </a>
                 </div>
             </li>
             <li class="item">
