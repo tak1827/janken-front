@@ -208,6 +208,12 @@ export default {
             })
         },
         handelIncrease(state) {
+            if(state == "timeToWin") {
+                if(this[state] == this.timeToFight) {
+                    this.$toast.error("Time to wins must lower or equal to time to fights");
+                    return
+                }
+            }
             this[state] += 1
         },
         handelDecrease(state) {

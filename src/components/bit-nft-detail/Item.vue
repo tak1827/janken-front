@@ -12,7 +12,7 @@
                 </h3>
                 <div class="cnt-detail">
                     <span>Owner:</span>
-                    <span class="bgr-cnt">{{ owner }}</span>
+                    <span class="bgr-cnt" v-tooltip="{ content: `${owner}` }">{{ owner }}</span>
                 </div>
                 <div class="cnt-text-detail">
                     <p>{{ description }}</p>

@@ -50,6 +50,11 @@ export default {
     },
     methods: {
         async getOffersData() {
+            let loader = this.$loading.show({
+                container: this.fullPage ? null : this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+            });
             await this.$apollo.query({
                 query: GET_OFFERS,
                 variables: { 
@@ -63,6 +68,7 @@ export default {
                 let message = getErrorMessage(error.graphQLErrors)
                 this.$toast.error(message);
             })
+            loader.hide()
         },
     }
 }

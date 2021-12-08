@@ -20,16 +20,16 @@
                                             <span class="cnt-sub">janken1gdg6scaqe…</span>
                                         </div>
                                         <ul class="page-sidebar-mypage" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                                            <li class="menu-active"><router-link :to="{ name: 'mypage.mint.nft'}">Mint NFT</router-link></li>
-                                            <li class="menu-active"><router-link :to="{ name: 'mypage.asset'}">My ASSET</router-link></li>
-                                            <li>
+                                            <li class="menu-active" :class="classActive('mypage.mint.nft')"><router-link :to="{ name: 'mypage.mint.nft'}">Mint NFT</router-link></li>
+                                            <li class="menu-active" :class="classActive('mypage.asset')"><router-link :to="{ name: 'mypage.asset'}">My ASSET</router-link></li>
+                                            <li :class="classActive('mypage.offers.receive')">
                                                 <router-link :to="{ name: 'mypage.offers.send'}">Offers</router-link>
                                                 <ul>
                                                     <li><router-link :to="{ name: 'mypage.offers.receive'}">Received Offers</router-link></li>
                                                     <li><router-link :to="{ name: 'mypage.offers.send'}">Send Offers</router-link></li>
                                                 </ul>
                                             </li>
-                                            <li><router-link :to="{ name: 'mypage.battle.result'}">Battle Results</router-link></li>
+                                            <li :class="classActive('mypage.battle.result')"><router-link :to="{ name: 'mypage.battle.result'}">Battle Results</router-link></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -63,6 +63,9 @@ export default {
         handelChangeModal (value) {
             this.hasModal = value
         },
+        classActive(routeName) {
+            return this.$route.name == routeName ? 'active' : ''
+        }
     },
 }
 </script>

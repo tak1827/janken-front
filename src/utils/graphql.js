@@ -63,6 +63,33 @@ export const GET_OFFERS = gql`
   }
 `
 
+export const GET_BATTLES = gql`
+  query GET_BATTLES ($address: String!) {
+    fetchBattles (address: $address) {
+      offerId,
+      status,
+      offerorNFT {
+        tokenId,
+        owner,
+        image,
+        name,
+        description
+      },
+      offereeNFT {
+        tokenId,
+        owner,
+        image,
+        name,
+        description
+      },
+      offereeHands,
+      offerorHands
+      drawPoint,
+      winner,
+    }
+  }
+`
+
 
 export const GET_ALL_UPLOAD_FILE = gql`
   query GET_ALL_UPLOAD_FILE {

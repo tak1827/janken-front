@@ -13,6 +13,15 @@ import routers from './routes'
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
+import VTooltip from 'v-tooltip'
+import 'v-tooltip/dist/v-tooltip.css'
+
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
+
+Vue.use(VTooltip)
+Vue.use(VueLoading)
 Vue.use(Toast, {});
 Vue.use(VueRouter)
 

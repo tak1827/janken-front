@@ -1326,13 +1326,15 @@ ul {
   z-index: -1;
 }
 .mypage .page-sidebar .cnt-side-mypage .page-sidebar-mypage > li a:hover,
-.mypage .page-sidebar .cnt-side-mypage .page-sidebar-mypage > li a.menu-active {
+.mypage .page-sidebar .cnt-side-mypage .page-sidebar-mypage > li a.menu-active,
+.mypage .page-sidebar .cnt-side-mypage .page-sidebar-mypage > li.active a{
   color: #fff;
   border-bottom: 1px solid #800000 0;
   border-top: 1px solid #800000 0;
 }
 .mypage .page-sidebar .cnt-side-mypage .page-sidebar-mypage > li a:hover:before,
-.mypage .page-sidebar .cnt-side-mypage .page-sidebar-mypage > li a.menu-active:before {
+.mypage .page-sidebar .cnt-side-mypage .page-sidebar-mypage > li a.menu-active:before,
+.mypage .page-sidebar .cnt-side-mypage .page-sidebar-mypage > li.active a:before{
   display: block;
 }
 .mypage .page-sidebar .cnt-side-mypage .page-sidebar-mypage > li:nth-child(2) > a {
@@ -1423,9 +1425,13 @@ ul {
   padding: 12px;
   position: relative;
   z-index: 1;
+  height: 350px;
 }
 .mypage .item-mypage .item .item-content .thumbnails {
   border-bottom: 2px solid #131211;
+}
+.mypage .item-mypage .item .item-content .thumbnails .thumb img {
+  height: 200px
 }
 .mypage .item-mypage .item .item-content .text-name {
   position: absolute;

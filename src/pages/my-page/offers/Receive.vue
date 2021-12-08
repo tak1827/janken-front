@@ -105,7 +105,6 @@ export default {
                 this.$toast.error("Can not find offer")
                 return
             }
-            console.log(offerDetail)
             this.offerId = offerDetail.offerId
             this.tokenId = offerDetail.offereeNFT.tokenId
             this.timeToFight = offerDetail.offerorHands.length
@@ -120,6 +119,11 @@ export default {
             }
         },
         async getOffersData() {
+            let loader = this.$loading.show({
+                container: this.fullPage ? null : this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+            });
             await this.$apollo.query({
                 query: GET_OFFERS,
                 variables: { 
@@ -132,6 +136,7 @@ export default {
                 let message = getErrorMessage(error.graphQLErrors)
                 this.$toast.error(message);
             })
+            loader.hide()
         },
         showModal() {
             this.handInModal = []
@@ -166,7 +171,12 @@ export default {
             })
         },
         async declineOffer(offerId) {
-            this.$apollo.mutate({
+            let loader = this.$loading.show({
+                container: this.fullPage ? null : this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+            });
+            await this.$apollo.mutate({
                 mutation: DECLINE_OFFER,
                 variables: {
                     offerId: offerId,
@@ -175,22 +185,31 @@ export default {
                 let message = getErrorMessage(error.graphQLErrors)
                 this.$toast.error(message);
             })
+            loader.hide()
         },
         async confirmHand() {
+            let loader = this.$loading.show({
+                container: this.fullPage ? null : this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+            });
             try {
                 const tokenId = this.tokenId.toString()
                 await appoveToken(tokenId)
                 await acceptOffer(this.offerId, this.handInModal)
-                const result = await this.acceptOffer(this.offerId, this.handInModal)
-                console.log(result)
-                this.resetForm()
+                await this.acceptOffer(this.offerId, this.handInModal)
                 this.$toast.success('Send fight request success')
+                this.removeOffer(this.offerId)
+                
             } catch(error) {
-                console.log(error.message)
                 this.$toast.error(error.message);
             }
+            loader.hide()
             this.closeModal()
         },
+        removeOffer(offerId) {
+            this.offers = this.offers.filter(x => x.offerId != offerId)
+        }
     }
 }
 </script>

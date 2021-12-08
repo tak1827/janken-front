@@ -40,7 +40,6 @@
 <script>
 import BitNftItem from '@/components/bit-nft/Item.vue'
 import { defaultData } from '@/utils/constants'
-import { getNumOfTokens } from '@/utils/wallet'
 import { getErrorMessage, getData } from '@/utils/api_response'
 import { GET_ALL_NFT } from '@/utils/graphql'
 export default {
@@ -77,15 +76,18 @@ export default {
     },
     async mounted() {
         this.getNftData()
-        await this.getNumOfTokens()
-        this.setPageCount()
     },
     methods: {
         clickCallback (pageNum) {
             console.log(pageNum)
         },
         async getNftData() {
-            this.$apollo.query({
+            let loader = this.$loading.show({
+                container: this.fullPage ? null : this.$refs.formContainer,
+                canCancel: true,
+                onCancel: this.onCancel,
+            });
+            await this.$apollo.query({
                 query: GET_ALL_NFT,
             }).then((response) => {
                 this.nfts = getData(response, this.allNftModule)
@@ -93,14 +95,8 @@ export default {
                 let message = getErrorMessage(error.graphQLErrors)
                 this.$toast.error(message);
             })
+            loader.hide()
         },
-        async getNumOfTokens() {
-            const response = await getNumOfTokens()
-            this.numOfTokens = response.num_tokens.count
-        },
-        setPageCount() {
-            this.page_count = Math.round(this.numOfTokens / this.meta.all_tokens.limit)
-        }
     }
 }
 </script>
