@@ -16,18 +16,18 @@
                         <img src="@frontend/assets/images/title.png" alt="menu" />
                     </div>
                     <div class="text-bit-nft">
-                        <h3>Bit your NFTs or </h3>
+                        <h3>Bet your NFTs or Tokens </h3>
                     </div>
                     <ul>
                         <li>
                             <router-link :to="{ name: 'bit.nft'}">
-                                Bit Nft
-                            </router-link> 
+                                Bet Nft
+                            </router-link>
                         </li>
                         <li>
                             <router-link :to="{ name: 'bit.token'}">
-                                Bit Token
-                            </router-link> 
+                                Bet Token
+                            </router-link>
                         </li>
                     </ul>
                     <!-- .member-main-->
@@ -53,7 +53,7 @@ export default {
     methods: {
         async connectWallet() {
             this.address = await connectWallet()
-            
+
         },
         getAddress() {
             this.address = getAddress();
