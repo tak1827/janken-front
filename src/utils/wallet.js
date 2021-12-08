@@ -137,7 +137,6 @@ export async function makeOffer(offerId, owner, offerorTokenId, offereeTokenId, 
     const client = getClient();
     const NFT_CONTRACT_ADDRESS = process.env.VUE_APP_CONSTRACT_ADDRESS
     const NFT_CONTRACT_CODE_HASH = process.env.VUE_APP_CONSTRACT_CODE_HASH
-    console.log(NFT_CONTRACT_CODE_HASH)
     const param = {
         id: offerId,
         offeree: owner,
@@ -156,11 +155,13 @@ export async function makeOffer(offerId, owner, offerorTokenId, offereeTokenId, 
 
 export async function acceptOffer(offerId, hands = []) {
     const client = getClient();
-    const param = {
-        id: offerId,
-        offeree_hands: hands,
-    }
-    const response = await client.execute(process.env.VUE_APP_JANKEN_CONTRACT, { "accept_offer": param })
+    const handleMsg = {
+        accept_offer: {
+          id: offerId,
+          offeree_hands: hands
+        }
+      }
+    const response = await client.execute(process.env.VUE_APP_JANKEN_CONTRACT, handleMsg)
     return response
 }
 
@@ -180,7 +181,7 @@ export async function appoveToken(tokenId) {
     const client = getClient();
     const queryParam = {
         approve: {
-            spender: getAddress(),
+            spender: process.env.VUE_APP_JANKEN_CONTRACT,
             token_id: tokenId
           }
     }

@@ -6,9 +6,16 @@ export const HAND = {
 
 export const HAND_RESULT = {
     WIN: 1,
-    TIE: 2,
-    LOOSE: 3
+    DRAW: 2,
+    LOSE: 3
 }
+
+export const BATTLE_RESULT = {
+    WIN: 1,
+    DRAW: 2,
+    LOSE: 3
+}
+
 
 export const HAND_TO_TEXT = {
     1: "rock",

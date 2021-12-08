@@ -86,6 +86,8 @@ export const GET_BATTLES = gql`
       offerorHands
       drawPoint,
       winner,
+      offeror,
+      offeree
     }
   }
 `

@@ -30,17 +30,17 @@ export default {
         resultText() {
             if(this.result == HAND_RESULT.WIN) {
                 return "WIN";
-            } else if(this.result == HAND_RESULT.LOOSE) {
-                return "LOOSE";
-            } else if(this.result == HAND_RESULT.TIE) {
-                return "TIE";
+            } else if(this.result == HAND_RESULT.LOSE) {
+                return "LOSE";
+            } else if(this.result == HAND_RESULT.DRAW) {
+                return "DRAW";
             }
             return "";
         },
         className() {
             if(this.result == HAND_RESULT.WIN) {
                 return "win";
-            } else if(this.result == HAND_RESULT.LOOSE) {
+            } else if(this.result == HAND_RESULT.LOSE) {
                 return "loose";
             } else if(this.result == HAND_RESULT.TIE) {
                 return "tie";

@@ -14,8 +14,8 @@
                 <div class="item-content">
                     <div class="text-title">Win condition</div>
                     <WinCondition :timeToFight="item.offerorHands.length" :timeToWin="getDrawPoint(item)" />
-                    <ImageResult v-if="!isDecline(item)" :status="item.status" :isWin="isWin(item)" @clickResult="showModal(item)"/>
-                    <ImageResult v-else :status="item.status" :isWin="isWin(item)"/>
+                    <ImageResult v-if="!isDecline(item)" :item="item" :isWin="isWin(item)" @clickResult="showModal(item)"/>
+                    <ImageResult v-else :item="item" :isWin="isWin(item)"/>
                 </div>
             </li>
             <li class="item">
@@ -35,7 +35,7 @@
                         <div class="title-popup"> <span>Result</span></div>
                         <div class="img-win">
                             <img v-if="win" src="@frontend/assets/images/modal-win.png" alt="menu"/>
-                             <img v-else src="@frontend/assets/images/loose_title.png" alt="menu"/>
+                            <img v-else src="@frontend/assets/images/lose-title.png" alt="menu"/>
                         </div>
                         <button class="close" type="button" @click="closeModal"> <span>&times;</span></button>
                     </div>
@@ -144,14 +144,14 @@ export default {
             let result = []
             for(const property in data) {
                 let item = data[property]
-                if(item.offereeNFT.owner == getAddress()) {
+                if(item.offeree == getAddress()) {
                     item["mine"] = item.offereeNFT
                     item["mine_hands"] = item.offereeHands
                 } else {
                     item["opponent"] = item.offereeNFT
                     item["opponent_hands"] = item.offereeHands
                 }
-                if(item.offerorNFT.owner == getAddress()) {
+                if(item.offeror == getAddress()) {
                     item["mine"] = item.offerorNFT
                     item["mine_hands"] = item.offerorHands
                 } else {
@@ -169,9 +169,12 @@ export default {
             return 0
         },
         isWin(item) {
-            if(item.address == getAddress()){
+            if(item.offeror == getAddress() && item.winner == "offeror") {
                 return true
-            } 
+            }
+            if(item.offeree == getAddress() && item.winner == "offeree") {
+                return true
+            }
             return false
         },
         isDecline(item) {
@@ -181,18 +184,18 @@ export default {
             const hand1 = handArray1[index]
             const hand2 = handArray2[index]
             if(hand1 == hand2) {
-                return HAND_RESULT.TIE
+                return HAND_RESULT.DRAW
             } else {
                 if(hand1 == HAND.ROCK && hand2 == HAND.PAPER) {
-                    return HAND_RESULT.LOOSE
+                    return HAND_RESULT.LOSE
                 } else if (hand1 == HAND.ROCK && hand2 == HAND.SCISSORS) {
                     return HAND_RESULT.WIN
                 } else if (hand1 == HAND.PAPER && hand2 == HAND.ROCK) {
                     return HAND_RESULT.WIN
                 } else if(hand1 == HAND.PAPER && hand2 == HAND.SCISSORS) {
-                    return HAND_RESULT.LOOSE
+                    return HAND_RESULT.LOSE
                 } else if(hand1 == HAND.SCISSORS && hand2 == HAND.ROCK) {
-                    return HAND_RESULT.LOOSE
+                    return HAND_RESULT.LOSE
                 } else {
                     return HAND_RESULT.WIN
                 }
