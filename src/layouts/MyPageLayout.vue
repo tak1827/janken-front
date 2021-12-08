@@ -22,7 +22,7 @@
                                         <ul class="page-sidebar-mypage" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                                             <li class="menu-active" :class="classActive('mypage.mint.nft')"><router-link :to="{ name: 'mypage.mint.nft'}">Mint NFT</router-link></li>
                                             <li class="menu-active" :class="classActive('mypage.asset')"><router-link :to="{ name: 'mypage.asset'}">My ASSET</router-link></li>
-                                            <li :class="classActive('mypage.offers.receive')">
+                                            <li >
                                                 <router-link :to="{ name: 'mypage.offers.send'}">Offers</router-link>
                                                 <ul>
                                                     <li><router-link :to="{ name: 'mypage.offers.receive'}">Received Offers</router-link></li>

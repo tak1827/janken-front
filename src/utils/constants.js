@@ -16,7 +16,7 @@ export const HAND_TO_TEXT = {
     3: "scissors"
 }
 
-export const status = {
+export const STATUS = {
     OFFERED: "Offered",
     DECLINED: "Declined"
 }

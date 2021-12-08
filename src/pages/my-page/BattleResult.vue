@@ -14,7 +14,8 @@
                 <div class="item-content">
                     <div class="text-title">Win condition</div>
                     <WinCondition :timeToFight="item.offerorHands.length" :timeToWin="getDrawPoint(item)" />
-                    <ImageResult :status="item.status" :isWin="isWin(item)" @clickResult="showModal(item)"/>
+                    <ImageResult v-if="!isDecline(item)" :status="item.status" :isWin="isWin(item)" @clickResult="showModal(item)"/>
+                    <ImageResult v-else :status="item.status" :isWin="isWin(item)"/>
                 </div>
             </li>
             <li class="item">
@@ -76,7 +77,7 @@ import Item from '@/components/bit-nft/Item.vue'
 import { GET_BATTLES } from '@/utils/graphql'
 import { getAddress } from '@/utils/wallet'
 import { getErrorMessage, getData } from '@/utils/api_response'
-import { HAND_RESULT, HAND } from '@/utils/constants'
+import { HAND_RESULT, HAND, STATUS } from '@/utils/constants'
 export default {
     components: {
         HandResult,
@@ -166,6 +167,9 @@ export default {
                 return true
             } 
             return false
+        },
+        isDecline(item) {
+            return item.status == STATUS.DECLINED
         },
         getResult(handArray1, handArray2, index) {
             const hand1 = handArray1[index]
