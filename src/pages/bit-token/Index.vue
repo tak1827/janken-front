@@ -124,6 +124,7 @@ export default {
             });
             try {
                 await bitToken(this.bet_amount, this.hand, this.entropy)
+                this.$toast.success("Success bet token")
                 this.resetForm()
             } catch(error) {
                 this.$toast.error(error.message);

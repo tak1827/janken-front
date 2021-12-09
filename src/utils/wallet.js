@@ -204,6 +204,6 @@ export async function bitToken(amount, hand, entropy) {
             entropy: entropy
         }
     }
-    const response = await client.execute(process.env.VUE_APP_JANKEN_CONTRACT, handleMsg, betToken)
+    const response = await client.execute(process.env.VUE_APP_JANKEN_CONTRACT, handleMsg, 'memo', betToken)
     return response
 }
