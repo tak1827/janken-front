@@ -2,7 +2,7 @@
     <div class="cnt-ratio">
         <div class="left">
         <div class="number">{{ timeToWin }}</div>
-        <div class="text">Wins</div>
+        <div class="text">Draw Points</div>
         </div>
         <div class="center">
         <div class="number">/</div>
