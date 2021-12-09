@@ -10,8 +10,17 @@
                             <img src="@frontend/assets/images/mypage.png" alt="menu"/>
                         </div>
                     </section>
+                    
                     <section class="list-content">
                         <div class="container">
+                            <div class="cnt-back-tag">
+                                <div class="back">
+                                    <router-link :to="{ name: 'bit.nft'}">
+                                        <i class="fa fa-caret-left" aria-hidden="true"></i>
+                                        <span> Back</span>
+                                    </router-link>
+                                </div>
+                            </div>
                             <div class="page-sidebar-wrapper vetical-menu">
                                 <div class="page-sidebar navbar-collapse collapse">
                                     <div class="cnt-side-mypage">

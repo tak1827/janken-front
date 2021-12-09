@@ -764,6 +764,7 @@ ul {
   max-width: 257px;
   float: left;
   width: 100%;
+  padding-top: 50px;
 }
 .page-content-wrapper .list-content .page-sidebar-wrapper .page-sidebar-menu li {
   background-image: url(../../assets/images/bgr_side.png);
@@ -835,6 +836,7 @@ ul {
 .page-content-wrapper .list-content .content-wapper-page {
   float: left;
   width: calc(100% - 257px);
+  padding-top: 50px;
 }
 .page-content-wrapper .list-content .content-wapper-page .list-item .item {
   width: 33.33%;
@@ -969,20 +971,27 @@ ul {
 .list-content-detail {
   margin-bottom: 100px;
 }
-.list-content-detail .cnt-back-tag {
+.list-content-detail .cnt-back-tag,
+.list-content .cnt-back-tag {
   border-bottom: 1px solid #131211;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
-.list-content-detail .cnt-back-tag .back a {
+.list-content-detail .cnt-back-tag .back a,
+.list-content .cnt-back-tag .back a{
   background-color: #800000;
   color: #fff;
-  font-size: 12px;
+  font-size: 20px;
   line-height: 24px;
   display: inline-block;
-  padding: 0 10px;
+  padding: 5px 25px;
 }
+.list-content .cnt-back-tag {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
 .list-content-detail .cnt-back-tag .back a i {
   padding-right: 5px;
 }
@@ -992,10 +1001,10 @@ ul {
 }
 .list-content-detail .cnt-back-tag ul li {
   display: inline-block;
-  font-size: 12px;
+  font-size: 20px;
   line-height: 24px;
   color: #fff;
-  padding: 0 10px;
+  padding: 5px 25px;
   border-left: 1px solid #fff;
 }
 .list-content-detail .content-item-detail {

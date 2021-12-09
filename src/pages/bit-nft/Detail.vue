@@ -27,7 +27,7 @@
                                     @decrease="handelDecrease"
                                 />
                                 <UpDownTime
-                                    title="Times to win:"
+                                    title="Win points:"
                                     :value="timeToWin"
                                     state="timeToWin"
                                     @increase="handelIncrease"
@@ -228,7 +228,7 @@ export default {
         },
         showModalHand() {
             if(!this.isSelectTimes()) {
-                this.$toast.error("You must choose times to find and times to wins");
+                this.$toast.error("You must choose times to find and win points");
                 return
             }
             this.handInModal = [...this.hands]
@@ -290,7 +290,7 @@ export default {
         },
         async sendFightRequest() {
             if(!this.isSelectTimes()) {
-                this.$toast.error("You must choose times to find and times to wins");
+                this.$toast.error("You must choose times to find and win points");
                 return
             }
 
