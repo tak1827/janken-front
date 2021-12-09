@@ -3,9 +3,9 @@
         <ul class="item-mypage" v-for="item in offers" :key="item.offerId">
             <li class="item">
                 <div class="title-mypage">MINE</div>
-                <Item 
+                <Item
                     :image="item.offereeNFT.image"
-                    :owner="item.offereeNFT.owner" 
+                    :owner="item.offereeNFT.owner"
                     :name="item.offereeNFT.name"
                     :id="item.offereeNFT.tokenId"
                 />
@@ -15,7 +15,7 @@
                     <div class="text-title">Win condition</div>
                     <WinCondition :timeToFight="item.offerorHands.length" :timeToWin="item.drawPoint"/>
                     <div class="cnt-send-request">
-                        <button class="btn btn-chose-nft" @click="handelSendFight(item.offerId)">Send Fight Request</button>
+                        <button class="btn btn-chose-nft" @click="handelSendFight(item.offerId)">Accept Fight Request</button>
                     </div>
                     <div class="cnt-btn-decline">
                         <button class="btn btn-dicline"  @click="handelDecline(item.offerId)">Decline</button>
@@ -24,9 +24,9 @@
             </li>
             <li class="item">
                 <div class="title-mypage">Opponent's</div>
-                <Item 
+                <Item
                     :image="item.offerorNFT.image"
-                    :owner="item.offerorNFT.owner" 
+                    :owner="item.offerorNFT.owner"
                     :name="item.offerorNFT.name"
                     :id="item.offerorNFT.tokenId"
                 />
@@ -110,7 +110,7 @@ export default {
             this.tokenId = offerDetail.offereeNFT.tokenId
             this.timeToFight = offerDetail.offerorHands.length
             this.showModal()
-            
+
         },
         async handelDecline(offerId) {
             if(confirm("Do you want to decline this offerr?")) {
@@ -139,7 +139,7 @@ export default {
             });
             await this.$apollo.query({
                 query: GET_OFFERS,
-                variables: { 
+                variables: {
                     address: getAddress(),
                     type: "RECEIVE"
                 }
@@ -193,7 +193,7 @@ export default {
                 let message = getErrorMessage(error.graphQLErrors)
                 this.$toast.error(message);
             })
-            
+
         },
         async confirmHand() {
             let loader = this.$loading.show({
