@@ -23,6 +23,11 @@ export const HAND_TO_TEXT = {
     3: "scissors"
 }
 
+export const BET_TOKEN = {
+    MIN: 1000000,
+    MAX: 100000000
+}
+
 export const STATUS = {
     OFFERED: "Offered",
     DECLINED: "Declined"

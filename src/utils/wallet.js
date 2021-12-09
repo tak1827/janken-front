@@ -130,7 +130,7 @@ export async function getNftDetail(tokenID) {
 }
 
 export async function getRandomID() {
-    return Math.floor(Math.random() * 100)
+    return Math.ceil(Math.random() * 10000)
 }
 
 export async function makeOffer(offerId, owner, offerorTokenId, offereeTokenId, hands = [], point) {
@@ -186,5 +186,24 @@ export async function appoveToken(tokenId) {
           }
     }
     const response = await client.execute(process.env.VUE_APP_CONSTRACT_ADDRESS, queryParam)
+    return response
+}
+
+export async function bitToken(amount, hand, entropy) {
+    const client = getClient();
+    const betToken = [{
+        denom: process.env.VUE_APP_COIN_MINIMAL_DENOM,
+        amount: amount.toString()
+    }]
+
+    const id = await getRandomID()
+    const handleMsg = {
+        bet_token: {
+            id: id,
+            hand: hand,
+            entropy: entropy
+        }
+    }
+    const response = await client.execute(process.env.VUE_APP_JANKEN_CONTRACT, handleMsg, betToken)
     return response
 }

@@ -1544,6 +1544,29 @@ ul {
 .popup_customer .cnt-detail-hand {
   margin-bottom: 30px;
 }
+.popup_customer .cnt-detail-hand .img-hand{
+  position:relative;
+  z-index: 1;
+  border:1px solid;
+}
+.popup_customer .cnt-detail-hand .img-hand:before{
+  position: absolute;
+    right: -7px;
+    bottom: -7px;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: -1;
+    border-right: 7px solid #801100;
+    border-bottom: 7px solid #801100;
+    display: none;
+    transition: 0.3s all;
+}
+.popup_customer .cnt-detail-hand:hover .img-hand:before,
+.popup_customer .cnt-detail-hand.active .img-hand:before{
+  display: block;
+  transition: 0.3s all;
+}
 .popup_customer .cnt-detail-hand .number {
   background-color: #9f8b8b;
   padding: 10px;
@@ -1749,6 +1772,13 @@ form .form-group  .btn:hover {
   background-color: #fff;
   border: 2px solid #131211;
   padding: 12px;
+}
+.entropy {
+  border: 0;
+  background: transparent;
+  min-height: 40px;
+  width: 100%;
+  padding: 0;
 }
 .privew-cnt-mypage .item .item-content .thumbnails {
   border-bottom: 2px solid #131211;
