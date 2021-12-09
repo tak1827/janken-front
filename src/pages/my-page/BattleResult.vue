@@ -165,10 +165,12 @@ export default {
             this.data = result
         },
         getDrawPoint(item) {
-            if(item.offereeHands) {
+            if(item.offeror == getAddress()){
                 return item.drawPoint
             }
-            return 0
+            if(item.offeree == getAddress()) {
+                return `-${item.drawPoint}`
+            }
         },
         isWin(item) {
             if(item.offeror == getAddress() && item.winner == "offeror") {
