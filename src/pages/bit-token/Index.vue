@@ -4,11 +4,7 @@
             <div class="content-bit-token">
                 <div class="cnt-token-left">
                     <div class="cnt-token"><span class="text">Amount to Bet ({{ denom }})</span>
-                        <div class="cnt-number-token"><span class="number">{{ bet_amount }}</span>
-                            <div class="icon-up-down">
-                                <div class="icon-up" @click="increase"><i class="fa fa-caret-up"></i></div>
-                                <div class="icon-down" @click="decrease"><i class="fa fa-caret-down"></i></div>
-                            </div>
+                        <div class="cnt-number-token"><input type="number" @input="checkMinMax($event)" class="entropy number" v-model="bet_amount" min="1" max="100">
                         </div>
                         <input type="text" class="entropy" v-model="entropy" value="Entropy">
                     </div>
@@ -95,15 +91,10 @@ export default {
             entropy: "Type your entropy",
             battleResult: 0,
             message: "",
-            logs: {"logs":[{"msg_index":0,"log":"","events":[{"type":"coin_received","attributes":[{"key":"receiver","value":"secret1xwe7v4js7sma2tme535mqpv2krfyz8w0xqrdyz"},{"key":"amount","value":"1000000uscrt"}]},{"type":"coin_spent","attributes":[{"key":"spender","value":"secret1ux8zlapmueayed2zj7u2uddnhx3lh9hw660ddv"},{"key":"amount","value":"1000000uscrt"}]},{"type":"message","attributes":[{"key":"action","value":"execute"},{"key":"module","value":"compute"},{"key":"signer","value":"secret1ux8zlapmueayed2zj7u2uddnhx3lh9hw660ddv"},{"key":"contract_address","value":"secret1xwe7v4js7sma2tme535mqpv2krfyz8w0xqrdyz"}]},{"type":"transfer","attributes":[{"key":"recipient","value":"secret1xwe7v4js7sma2tme535mqpv2krfyz8w0xqrdyz"},{"key":"sender","value":"secret1ux8zlapmueayed2zj7u2uddnhx3lh9hw660ddv"},{"key":"amount","value":"1000000uscrt"}]},{"type":"wasm","attributes":[{"key":"contract_address","value":"secret1xwe7v4js7sma2tme535mqpv2krfyz8w0xqrdyz"},{"key":"action","value":"bet"},{"key":"result","value":"lose"}]}]}],"transactionHash":"82DFF1CBE388584B83B28DDB025683A0AB89FF7974F0BC062E72DC94878CED6D","data":{}}
         }
     },
     components: {
         ImageHand
-    },
-    mounted() {
-        this.battleResult = getBattleResult(this.logs)
-        console.log(getMessageResult(this.battleResult))
     },
     methods: {
         increase() {
@@ -178,6 +169,19 @@ export default {
             this.hand = 0,
             this. handInModal = 0,
             this.entropy = ""
+        },
+        checkMinMax(event){
+            const bet_amount = event.target.value
+            if(bet_amount >=BET_TOKEN.MAX) {
+                this.$toast.error(`Max bet amount is ${BET_TOKEN.MAX}  ${this.denom}`);
+                this.bet_amount = BET_TOKEN.MAX
+                return
+            }
+            if(bet_amount < BET_TOKEN.MIN) {
+                this.$toast.error(`Min bet amount is ${BET_TOKEN.MIN} ${this.denom}`);
+                this.bet_amount = BET_TOKEN.MIN
+                return
+            }
         }
     }
 }

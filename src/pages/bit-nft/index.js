@@ -9,6 +9,6 @@ export default [
     {
       path: '/bet/nft/:id',
       component: BitNftDetail,
-      name: 'bit.nft.detail',
+      name: 'bet.nft.detail',
     },
   ]

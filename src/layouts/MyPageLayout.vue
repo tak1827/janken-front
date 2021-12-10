@@ -15,7 +15,7 @@
                         <div class="container">
                             <div class="cnt-back-tag">
                                 <div class="back">
-                                    <router-link :to="{ name: 'bit.nft'}">
+                                    <router-link :to="{ name: 'bet.nft'}">
                                         <i class="fa fa-caret-left" aria-hidden="true"></i>
                                         <span> Back</span>
                                     </router-link>

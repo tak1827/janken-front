@@ -1,5 +1,5 @@
 <template>
-        <router-link :to="{ name: 'bit.nft.detail', params: {id: id}}">
+        <router-link :to="{ name: 'bet.nft.detail', params: {id: id}}">
             <div class="item-content">
                 <div class="thumbnails">
                     <div class="thumb">
