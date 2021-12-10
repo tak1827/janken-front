@@ -4,7 +4,7 @@
             <div class="content-bit-token">
                 <div class="cnt-token-left">
                     <div class="cnt-token"><span class="text">Amount to Bet ({{ denom }})</span>
-                        <div class="cnt-number-token"><input type="number" @input="checkMinMax($event)" class="entropy number" v-model="bet_amount" min="1" max="100">
+                        <div class="cnt-number-token"><input type="number" class="entropy number" v-model="bet_amount" min="1" max="100">
                         </div>
                         <input type="text" class="entropy" v-model="entropy" value="Entropy">
                     </div>
@@ -148,6 +148,10 @@ export default {
                 this.$toast.error("You must choose your hand to fight")
                 return
             }
+            if(!this.isValidAmount()) {
+                this.$toast.error(`Min amount is ${BET_TOKEN.MIN}${this.denom} or over ${BET_TOKEN.MAX}${this.denom}`);
+                return
+            }
             let loader = this.$loading.show({
                 container: this.$refs.formContainer,
                 canCancel: true,
@@ -170,18 +174,11 @@ export default {
             this. handInModal = 0,
             this.entropy = ""
         },
-        checkMinMax(event){
-            const bet_amount = event.target.value
-            if(bet_amount >=BET_TOKEN.MAX) {
-                this.$toast.error(`Max bet amount is ${BET_TOKEN.MAX}  ${this.denom}`);
-                this.bet_amount = BET_TOKEN.MAX
-                return
+        isValidAmount(){
+            if(this.bet_amount < BET_TOKEN.MIN || this.bet_amount >=BET_TOKEN.MAX) {
+                return false
             }
-            if(bet_amount < BET_TOKEN.MIN) {
-                this.$toast.error(`Min bet amount is ${BET_TOKEN.MIN} ${this.denom}`);
-                this.bet_amount = BET_TOKEN.MIN
-                return
-            }
+            return true
         }
     }
 }
