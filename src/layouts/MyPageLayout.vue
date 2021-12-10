@@ -10,7 +10,7 @@
                             <img src="@frontend/assets/images/mypage.png" alt="menu"/>
                         </div>
                     </section>
-                    
+
                     <section class="list-content">
                         <div class="container">
                             <div class="cnt-back-tag">
@@ -35,7 +35,7 @@
                                                 <router-link :to="{ name: 'mypage.offers.send'}">Offers</router-link>
                                                 <ul>
                                                     <li><router-link :to="{ name: 'mypage.offers.receive'}">Received Offers</router-link></li>
-                                                    <li><router-link :to="{ name: 'mypage.offers.send'}">Send Offers</router-link></li>
+                                                    <li><router-link :to="{ name: 'mypage.offers.send'}">Sent Offers</router-link></li>
                                                 </ul>
                                             </li>
                                             <li :class="classActive('mypage.battle.result')"><router-link :to="{ name: 'mypage.battle.result'}">Battle Results</router-link></li>
