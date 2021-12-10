@@ -7,7 +7,8 @@
                 <div class="page-content">
                     <section class="banner" v-if="hasBanner">
                         <div class="img-banner">
-                            <img src="@frontend/assets/images/banner.png" alt="menu"/>
+                            <img v-if="isBetTokenPage" src="@frontend/assets/images/bet-token-header.png" alt="menu"/>
+                            <img v-else src="@frontend/assets/images/banner.png" alt="menu"/>
                         </div>
                     </section>
                     <router-view v-on:changeBanner="handelChangeBanner" @changeModal="handelChangeModal"></router-view>
@@ -39,6 +40,9 @@ export default {
         handelChangeModal (value) {
             this.hasModal = value
         },
+        isBetTokenPage () {
+            return this.$route.name == "bet.token"
+        }
     },
 }
 </script>

@@ -16,6 +16,7 @@ export const BATTLE_RESULT = {
     LOSE: 3
 }
 
+export const PERCENT = 3
 
 export const HAND_TO_TEXT = {
     1: "rock",
@@ -24,8 +25,8 @@ export const HAND_TO_TEXT = {
 }
 
 export const BET_TOKEN = {
-    MIN: 1000000,
-    MAX: 100000000
+    MIN: 1,
+    MAX: 100
 }
 
 export const STATUS = {

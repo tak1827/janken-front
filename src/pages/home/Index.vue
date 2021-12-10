@@ -20,12 +20,12 @@
                     </div>
                     <ul>
                         <li>
-                            <router-link :to="{ name: 'bit.nft'}">
+                            <router-link :to="{ name: 'bet.nft'}">
                                 Bet Nft
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{ name: 'bit.token'}">
+                            <router-link :to="{ name: 'bet.token'}">
                                 Bet Token
                             </router-link>
                         </li>

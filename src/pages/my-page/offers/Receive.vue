@@ -13,7 +13,7 @@
             <li class="item">
                 <div class="item-content">
                     <div class="text-title">Win condition</div>
-                    <WinCondition :timeToFight="item.offerorHands.length" :timeToWin="item.drawPoint"/>
+                    <WinCondition :timeToFight="item.offerorHands.length" :timeToWin="getDrawPoint(item)"/>
                     <div class="cnt-send-request">
                         <button class="btn btn-chose-nft" @click="handelSendFight(item.offerId)">Accept Fight Request</button>
                     </div>
@@ -216,7 +216,10 @@ export default {
         },
         removeOffer(offerId) {
             this.offers = this.offers.filter(x => x.offerId != offerId)
-        }
+        },
+        getDrawPoint(item) {
+            return `- ${item.drawPoint}`
+        },
     }
 }
 </script>

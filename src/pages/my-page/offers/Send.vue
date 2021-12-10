@@ -13,7 +13,7 @@
             <li class="item">
                 <div class="item-content">
                     <div class="text-title">Win condition</div>
-                    <WinCondition :timeToFight="item.offerorHands.length"/>
+                    <WinCondition :timeToWin="item.drawPoint" :timeToFight="item.offerorHands.length"/>
                 </div>
             </li>
             <li class="item">

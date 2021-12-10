@@ -4,7 +4,7 @@ export default [
     {
       path: '/bet/nft',
       component: BitNft,
-      name: 'bit.nft',
+      name: 'bet.nft',
     },
     {
       path: '/bet/nft/:id',
