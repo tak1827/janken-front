@@ -1,21 +1,20 @@
-# janken-front
+# secret-janken-front
 
-<p align="center">
-  <img src="./imgs/janken-home.png" width="600">
-</p>
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=-cEdzOsm0cY"><img src="https://img.youtube.com/vi/-cEdzOsm0cY/0.jpg" alt="IMAGE ALT TEXT" width=600></a>
+</div>
 
 The web ui of Secret Janken Game Dapps.
 
 live: http://janken.games
 
-demo video: youtube link
+Youtube Demo: https://www.youtube.com/watch?v=-cEdzOsm0cY
 
 ## Front Workflow
 
 <p align="center">
   <img src="./imgs/front-workflow.png" width="800">
 </p>
-
 
 
 ## How to Play
@@ -70,8 +69,22 @@ Immediately after Alice accepts the battle request, Bob and Alice's hands are ma
 1. Decide Bet Amount
 2. Decide Secure Entropy
 3. Decide Your Hand
+
+<p align="center">
+  <img src="./imgs/bet_token_1.png" width="400">
+</p>
+
+A player submit a hand and an entropy with betting amount. The entropy is used for random number generation source.
+
+
 4. Check Result
 
+<p align="center">
+  <img src="./imgs/bet_token_2.png" width="400">
+</p>
+
+The matches is processed automatically in the contract. If a player win, a player get “the betting amount - fee” equivalent amount of token. If the player is lost, a player is taken “the betting amount ” equivalent amount of token. If the match result is draw, a player just pay fee. Default fee is 3% of tokens a player sent.
+
 ## reference
-- [janken-contract](https://github.com/tak1827/janken-contract) CosmWasm Janken contract for Secrete Netork.
-- [janken-api](https://github.com/tak1827/janken-front) Helper backend service to improve UX for Secret Janken Game.
+- [secret-janken-contract](https://github.com/tak1827/secret-janken-contract) CosmWasm Janken contract for Secrete Netork.
+- [secret-janken-api](https://github.com/tak1827/secret-janken-front) Helper backend service to improve UX for Secret Janken Game.
