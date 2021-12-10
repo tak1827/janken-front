@@ -3,7 +3,7 @@
         <div class="container">
             <div class="content-bit-token">
                 <div class="cnt-token-left">
-                    <div class="cnt-token"><span class="text">Amount to Bet ({{ denom }})</span>
+                  <div class="cnt-token"><span class="text">Amount to Bet (1~100 {{ denom }})</span>
                         <div class="cnt-number-token"><input type="number" class="entropy number" v-model="bet_amount" min="1" max="100">
                         </div>
                         <input type="text" class="entropy" v-model="entropy" value="Entropy">
@@ -149,7 +149,7 @@ export default {
                 return
             }
             if(!this.isValidAmount()) {
-                this.$toast.error(`Min amount is ${BET_TOKEN.MIN}${this.denom} or over ${BET_TOKEN.MAX}${this.denom}`);
+                this.$toast.error(`Min amount is ${BET_TOKEN.MIN}${this.denom} and Max amount is ${BET_TOKEN.MAX}${this.denom}`);
                 return
             }
             let loader = this.$loading.show({
