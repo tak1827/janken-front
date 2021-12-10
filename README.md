@@ -10,12 +10,22 @@ live: http://janken.games
 
 demo video: youtube link
 
+## Front Workflow
+
+<p align="center">
+  <img src="./imgs/front-workflow.png" width="800">
+</p>
+
+
+
 ## How to Play
 **Pre Requirements**
-- Install Keplr extension for browser
+- Install [Keplr extension](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap) for browser
 - Get some Secret Network Testnet token (`pulsar-1`) from [the official faucet site](https://faucet.secrettestnet.io/)
 
 ### BET NFT
+Let's see how Bob and Alice play Betting NFT!
+
 1. Create Your Own NFT
 
 <p align="center">
